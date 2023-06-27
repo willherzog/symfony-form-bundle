@@ -5,6 +5,6 @@
 }
 
 /* Hide the contents of collapsible fieldsets by default */
-fieldset.collapsible > :not(legend) {
+fieldset.collapsible > :not(legend, .expander) {
 	display: none;
 }

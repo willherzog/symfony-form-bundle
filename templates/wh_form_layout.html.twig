@@ -13,7 +13,7 @@
 {% endblock form_widget_simple %}
 
 {% block collection_widget %}
-	{%~ set attr = attr|merge({'class': ('sub-form-container group-members ' ~ attr.class|default(''))|trim}) %}
+	{%~ set attr = attr|merge({'class': ('sub-form-container group-members ' ~ row_attr.class|default(''))|trim}) %}
 	{%~ if prototype is defined and not prototype.rendered %}
 		{%~ set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
 	{%~ endif %}

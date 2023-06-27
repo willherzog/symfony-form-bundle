@@ -1,0 +1,6 @@
+wh_form:
+    label:
+        add_item: Add Item
+        click_to_change: Click to change value…
+        select_image: '(Select Image)'
+        settings: Settings

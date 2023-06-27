@@ -24,7 +24,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 		$resolver
 			->setDefaults([
 				'add_button_class' => 'add-item',
-				'add_button_label' => 'action.generic.add_item',
+				'add_button_label' => 'wh_form.label.add_item',
 				'add_button_position' => null,
 				'help_text_position' => null
 			])

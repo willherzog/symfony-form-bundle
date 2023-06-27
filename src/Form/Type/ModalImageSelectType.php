@@ -18,7 +18,7 @@ class ModalImageSelectType extends AbstractType
 
 	public function __construct(TranslatorInterface $translator)
 	{
-		$this->buttonDefaultLabel = $translator->trans('value.no_image_selected');
+		$this->buttonDefaultLabel = $translator->trans('wh_form.label.select_image');
 	}
 
 	public function getParent(): string

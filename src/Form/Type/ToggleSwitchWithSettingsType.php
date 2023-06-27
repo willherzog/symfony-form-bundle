@@ -22,7 +22,7 @@ class ToggleSwitchWithSettingsType extends AbstractType
 	{
 		$resolver
 			->setDefaults([
-				'button_label' => 'term.generic.settings', // Label for action button; defaults to 'Settings'
+				'button_label' => 'wh_form.label.settings', // Label for action button; defaults to 'Settings'
 				'button_attr' => [], // Additional attributes for action button; defaults to 'class="action open-settings"'
 				'use_parent_row_type' => true
 			])

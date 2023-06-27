@@ -281,7 +281,7 @@
 
 {% block collection_entry_row %}
 	{%~ if form|length > 0 %}
-		{%~ set attr = form_attr_html_classes(attr), ['sub-form', 'group-member']) %}
+		{%~ set attr = form_attr_html_classes(attr, ['sub-form', 'group-member']) %}
 		<div {{ block('widget_container_attributes') }}>
 			{{- form_errors(form) -}}
 			{{- block('form_rows') -}}

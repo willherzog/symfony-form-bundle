@@ -1,0 +1,10 @@
+/* Hide replaced widgets without *really* hiding them */
+.form-field .hidden-widget {
+	position: absolute;
+	left: -9999px;
+}
+
+/* Hide the contents of collapsible fieldsets by default */
+fieldset.collapsible > :not(legend) {
+	display: none;
+}

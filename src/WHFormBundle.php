@@ -23,7 +23,7 @@ class WHFormBundle extends AbstractBundle
 	public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
 	{
 		$container->extension('twig', [
-			'form_themes' => ['wh_form_layout.html.twig']
+			'form_themes' => ['@WHForm/wh_form_layout.html.twig']
 		]);
 	}
 

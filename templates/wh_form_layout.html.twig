@@ -267,7 +267,7 @@
 		{%- set widget_attr = {attr: {'aria-describedby': id ~"-help"}} -%}
 	{%- endif -%}
 	{%- set addl_classes = [] -%}
-	{%- if 'money' in block_prefixes or 'percent' in block_prefixes -%}
+	{%- if ('money' in block_prefixes or 'percent' in block_prefixes) and form.vars.symbol is not empty -%}
 		{%- set addl_classes = ['with-type-symbol'] -%}
 	{%- endif -%}
 	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-field'], addl_classes) %}

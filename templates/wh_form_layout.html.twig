@@ -1,0 +1,410 @@
+{% use 'form_div_layout.html.twig' %}
+
+{# Native Widgets #}
+
+{% block form_widget_simple %}
+	{%- set default_type = default_type|default('text') -%}
+	{%- set type = type|default(default_type) -%}
+	{%~ if type == 'range' or type == 'color' %}
+		{#- Attribute "required" is not supported -#}
+		{%- set required = false -%}
+	{%~ endif %}
+			<input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}"{% endif %}>
+{% endblock form_widget_simple %}
+
+{% block collection_widget %}
+	{%~ set attr = attr|merge({'class': ('sub-form-container group-members ' ~ attr.class|default(''))|trim}) %}
+	{%~ if prototype is defined and not prototype.rendered %}
+		{%~ set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
+	{%~ endif %}
+		<div {{ block('widget_container_attributes') }}>
+		{%~ for child in form|filter(child => not child.rendered) %}
+			{{~ form_row(child) }}
+		{%~ endfor %}
+		{%~ if add_button_position == 'inside' %}
+			<button type="button" class="action add-item">{{ add_button_label|trans }}</button>
+		{%~ endif -%}
+			{{~ form_rest(form) }}
+		</div>
+{% endblock collection_widget %}
+
+{% block choice_widget_expanded %}
+	{%~ if expanded_wrapping_strategy == 'wrap_all' %}
+		<div class="expanded choices">
+		{%~ for child in form %}
+			{{~ form_widget(child) }}
+			{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
+		{%~ endfor %}
+		</div>
+	{%~ elseif expanded_wrapping_strategy == 'wrap_each' %}
+		{%~ for child in form %}
+		<div class="{{ expanded_choice_container_classes(value, child.vars.value) }}">
+			{{~ form_widget(child) }}
+			{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
+		</div>
+		{%~ endfor %}
+	{%~ else %}
+		{%~ for child in form %}
+		{{~ form_widget(child) }}
+		{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
+		{%~ endfor %}
+	{%~ endif %}
+{% endblock choice_widget_expanded %}
+
+{% block choice_widget_collapsed %}
+	{%~ if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) %}
+		{%~ set required = false %}
+	{%~ endif %}
+		<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
+		{%~ if placeholder is not none %}
+			<option value=""{% if required and value is empty %} selected{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans(placeholder_translation_parameters, translation_domain)) }}</option>
+		{%~ endif %}
+		{%~ if preferred_choices|length > 0 %}
+			{%~ set options = preferred_choices %}
+            {%~ set render_preferred_choices = true %}
+			{{~ block('choice_widget_options') }}
+			{%~ if choices|length > 0 and separator is not none %}
+			<option disabled>{{ separator }}</option>
+			{%~ endif %}
+		{%~ endif %}
+		{%~ set options = choices %}
+        {%~ set render_preferred_choices = false %}
+		{{~ block('choice_widget_options') }}
+		</select>
+{% endblock choice_widget_collapsed %}
+
+{% block choice_widget_options %}
+	{%- for group_label, choice in options -%}
+		{%~ if choice is iterable %}
+			<optgroup label="{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}">
+				{%- set options = choice -%}
+				{{~ block('choice_widget_options') }}
+			</optgroup>
+		{%~ else %}
+			{%~ set option_label = choice_translation_domain is same as(false) ? choice.label : choice.label|trans(choice.labelTranslationParameters, choice_translation_domain) %}
+			<option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if not render_preferred_choices|default(false) and choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ option_label }}</option>
+		{%~ endif %}
+	{%- endfor -%}
+{% endblock choice_widget_options %}
+
+{% block number_widget %}
+		{{~ block('form_widget_simple') }}
+{% endblock number_widget %}
+
+{% block integer_widget %}
+	{%- set default_type = 'number' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock integer_widget %}
+
+{% block money_widget %}
+	{%~ if symbol is not empty %}
+		<div class="faux-number-widget with-type-symbol">
+		{%~ if symbol_placement == 'before' %}
+			<span class="input-type-symbol before">{{ symbol }}</span>
+		{%~ endif %}
+			{{~ block('form_widget_simple') }}
+		{%~ if symbol_placement == 'after' %}
+			<span class="input-type-symbol after">{{ symbol }}</span>
+		{%~ endif %}
+		</div>
+	{%~ else %}
+		{{~ block('form_widget_simple') }}
+	{%~ endif %}
+{% endblock money_widget %}
+
+{% block url_widget %}
+	{%- set default_type = 'url' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock url_widget %}
+
+{% block search_widget %}
+	{%- set default_type = 'search' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock search_widget %}
+
+{% block percent_widget %}
+	{%~ if symbol is not empty %}
+		<div class="faux-number-widget with-type-symbol">
+			{{~ block('form_widget_simple') }}
+			<span class="input-type-symbol after">{{ symbol }}</span>
+		</div>
+	{%~ else %}
+		{{~ block('form_widget_simple') }}
+	{%~ endif %}
+{% endblock percent_widget %}
+
+{% block password_widget %}
+	{%- set default_type = 'password' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock password_widget %}
+
+{% block hidden_widget %}
+	{%- set default_type = 'hidden' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock hidden_widget %}
+
+{% block email_widget %}
+	{%- set default_type = 'email' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock email_widget %}
+
+{% block range_widget %}
+	{%- set default_type = 'range' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock range_widget %}
+
+{% block tel_widget %}
+	{%- set default_type = 'tel' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock tel_widget %}
+
+{% block color_widget %}
+	{%- set default_type = 'color' -%}
+		{{~ block('form_widget_simple') }}
+{% endblock color_widget %}
+
+{# Custom Widgets #}
+
+{% block toggle_switch_widget %}
+		<button type="button" class="stylable-widget toggle-switch-widget{% if checked %} enabled{% endif %}" role="presentation"></button>
+		{{ block('checkbox_widget') }}
+{% endblock toggle_switch_widget %}
+
+{% block toggle_switch_with_settings_widget %}
+		{{~ block('toggle_switch_widget') }}
+		<button type="button" aria-haspopup="dialog" {% with { attr: button_attr } %}{{ block('attributes') }}{% endwith %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
+{% endblock toggle_switch_with_settings_widget %}
+
+{% block info_widget %}
+	{%~ set attr = form_attr_html_classes(attr, ['info-widget']) %}
+	{#~ This field type has no widget, per se, so simply using "attributes" here #}
+		<{{ value_label_element|default('span') }} id="{{ id }}" {{ block('attributes') }}{% if value is defined and value is not empty %} data-value="{{ value|e('html_attr') }}"{% endif %}>{% if value_label_has_html %}{{ value_label|raw }}{% else %}{{ value_label }}{% endif %}</{{ value_label_element|default('span') }}>
+{% endblock info_widget %}
+
+{% block action_widget %}
+	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
+		<button type="button" {{ block('button_attributes') }}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
+{% endblock action_widget %}
+
+{% block modal_editor_widget %}
+	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
+	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
+		<button type="button" id="{{ id }}" {{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
+		{{ block('form_widget_hidden') }}
+{% endblock modal_editor_widget %}
+
+{% block modal_select_widget %}
+	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
+	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
+		<button type="button" id="{{ id }}" {{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_text }}</button>
+		{{ block('form_widget_hidden') }}
+{% endblock modal_select_widget %}
+
+{%- block include_widget -%}
+	{{~ include(template, template_context) }}
+{%- endblock include_widget -%}
+
+{# Labels #}
+
+{% block form_label %}
+	{%~ if label is not same as(false) %}
+		{%~ if not compound %}
+			{%~ set label_attr = label_attr|merge({'for': id}) %}
+		{%~ endif %}
+			<{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+				{{- block('form_label_content') -}}
+			</{{ element|default('label') }}>
+	{%~ endif %}
+{% endblock form_label %}
+
+{% block fieldset_label %}
+	{%~ if label is not same as(false) %}
+			<legend{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+				{{- block('form_label_content') -}}
+			</legend>
+	{%~ endif %}
+{% endblock fieldset_label %}
+
+{# Help #}
+
+{% block form_help %}
+	{%- if help is not empty -%}
+		{%~ set help_attr = help_attr|merge({class: ('help-text ' ~ help_attr.class|default(''))|trim}) %}
+		{%~ if help_html and help_markdown_lines is same as('full_multi_line') %}
+			<div id="{{ id }}-help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+			{%~ if translation_domain is same as(false) %}
+				{{~ help|markdown }}
+			{%~ else %}
+				{{~ help|trans(help_translation_parameters, translation_domain)|markdown }}
+			{%~ endif %}
+			</div>
+		{%~ else %}
+			{%~ set enable_line_breaks = help_markdown_lines is same as('line_breaks_only') %}
+			<p id="{{ id }}-help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+			{%- if translation_domain is same as(false) -%}
+				{%- if help_html -%}
+					{{- help|markdown_line_only(enable_line_breaks) -}}
+				{%- else -%}
+					{{- help -}}
+				{%- endif -%}
+			{%- else -%}
+				{%- if help_html -%}
+					{{- help|trans(help_translation_parameters, translation_domain)|markdown_line_only(enable_line_breaks) -}}
+				{%- else -%}
+					{{- help|trans(help_translation_parameters, translation_domain) -}}
+				{%- endif -%}
+			{%- endif -%}
+			</p>
+		{%~ endif %}
+	{%- endif -%}
+{% endblock form_help %}
+
+{# Rows #}
+
+{% block form_row %}
+	{%- set widget_attr = {} -%}
+	{%- if help is not empty -%}
+		{%- set widget_attr = {attr: {'aria-describedby': id ~"-help"}} -%}
+	{%- endif -%}
+	{%- set addl_classes = [] -%}
+	{%- if 'money' in block_prefixes or 'percent' in block_prefixes -%}
+		{%- set addl_classes = ['with-type-symbol'] -%}
+	{%- endif -%}
+	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-field'], addl_classes) %}
+		<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+			{{- form_label(form) -}}
+			{{- form_widget(form, widget_attr) -}}
+			{{- form_errors(form) -}}
+			{{- form_help(form) -}}
+		</div>
+{% endblock form_row %}
+
+{% block collection_entry_row %}
+	{%~ if form|length > 0 %}
+		{%~ set attr = form_attr_html_classes(attr), ['sub-form', 'group-member']) %}
+		<div {{ block('widget_container_attributes') }}>
+			{{- form_errors(form) -}}
+			{{- block('form_rows') -}}
+		</div>
+	{%~ else %}
+		{{~ form_row(form) }}
+	{%~ endif %}
+{% endblock collection_entry_row %}
+
+{% block collection_row %}
+	{%- set widget_attr = {} -%}
+	{%- if help is not empty -%}
+		{%- set widget_attr = {attr: {'aria-describedby': id ~"-help"}} -%}
+	{%- endif -%}
+	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-group']) %}
+		<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+			{{~ form_label(form) }}
+		{%~ if help_text_position == 'before' %}
+			{{~ form_help(form) }}
+		{%~ endif %}
+		{%~ if add_button_position == 'before' %}
+			<button type="button" class="action {{ add_button_class }}">{{ add_button_label|trans }}</button>
+		{%~ endif %}
+			{{~ form_widget(form, widget_attr) }}
+			{{~ form_errors(form) }}
+		{%~ if add_button_position == 'after' %}
+			<button type="button" class="action {{ add_button_class }}">{{ add_button_label|trans }}</button>
+		{%~ endif %}
+		{%~ if help_text_position == 'after' %}
+			{{~ form_help(form) }}
+		{%~ endif %}
+		</div>
+{% endblock collection_row %}
+
+{% block fieldset_row %}
+		<fieldset{% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}>
+			{{~ form_label(form) }}
+		{%~ if help_text_position == 'before' %}
+			{{~ form_help(form) }}
+		{%~ endif %}
+			{{~ block('form_rows') }}
+		{%~ if help_text_position == 'after' %}
+			{{~ form_help(form) }}
+		{%~ endif %}
+		</fieldset>
+{% endblock fieldset_row %}
+
+{% block toggle_switch_row %}
+	{%- set widget_attr = {} -%}
+	{%- if help is not empty -%}
+		{%- set widget_attr = {attr: {'aria-describedby': id ~"-help"}} -%}
+	{%- endif -%}
+	{%- if label_after_widget -%}
+		{%- set addl_classes = ['label-after'] -%}
+	{%- endif -%}
+	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-field'], addl_classes|default([])) %}
+		<div{% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}>
+			{{~ form_label(form) }}
+			{{~ form_widget(form, widget_attr) }}
+			{{~ form_errors(form) }}
+			{{~ form_help(form) }}
+		</div>
+{% endblock toggle_switch_row %}
+
+{% block checkbox_row %}
+	{%- set widget_attr = {} -%}
+	{%- if help is not empty -%}
+		{%- set widget_attr = {attr: {'aria-describedby': id ~"-help"}} -%}
+	{%- endif -%}
+	{%- set addl_classes = [] -%}
+	{%- if label_after_widget -%}
+		{%- set addl_classes = ['label-after'] -%}
+	{%- endif -%}
+	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-field'], addl_classes) %}
+		<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+		{%~ if label_after_widget %}
+			{{~ form_widget(form, widget_attr) }}
+			{{~ form_label(form) }}
+		{%~ else %}
+			{{~ form_label(form) }}
+			{{~ form_widget(form, widget_attr) }}
+		{%~ endif %}
+			{{~ form_errors(form) }}
+			{{~ form_help(form) }}
+		</div>
+{% endblock checkbox_row %}
+
+{% block button_row %}
+	{%~ set row_attr = row_attr|merge({'class': ('form-action ' ~ row_attr.class|default(''))|trim}) %}
+		<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+			{{~ form_widget(form) }}
+		</div>
+{% endblock button_row %}
+
+{# Misc #}
+
+{% block form_start %}
+	{%~ do form.setMethodRendered() %}
+	{%~ set method = method|upper %}
+	{%~ if method in ["GET", "POST"] %}
+		{%~ set form_method = method %}
+	{%~ else %}
+		{%~ set form_method = "POST" %}
+	{%~ endif %}
+		<form{% if id != '' %} id="{{ id }}"{% endif %}{% if name != '' %} name="{{ name }}"{% endif %} method="{{ form_method|lower }}"{% if action != '' %} action="{{ action }}"{% endif %}{{ block('attributes') }}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+	{%~ if form_method != method %}
+			<input type="hidden" name="_method" value="{{ method }}">
+	{%~ endif %}
+{% endblock form_start %}
+
+{% block form_errors %}
+	{%~ if errors|length > 0 %}
+		<ul class="error-list">
+		{%~ for error in errors %}
+			<li class="error">{{ error.message }}</li>
+		{%~ endfor %}
+		</ul>
+	{%~ endif %}
+{% endblock form_errors %}
+
+{# Support #}
+
+{% block form_widget_hidden %}
+<input type="hidden" class="form-widget-actual" name="{{ full_name }}"{% if required %} required{% endif %}{% if value is not empty %} value="{{ value }}"{% endif %}>
+{% endblock form_widget_hidden %}
+

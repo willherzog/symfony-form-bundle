@@ -1,0 +1,30 @@
+{
+	"name": "willherzog/symfony-form-bundle",
+	"description": "An assortment of small changes and extensions to the Symfony Form component.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Will Herzog",
+            "email": "willherzog@gmail.com"
+        }
+    ],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/willherzog/php-util"
+		}
+	],
+    "require": {
+		"php": "^8.2",
+		"symfony/form": "^6.2",
+		"symfony/framework-bundle": "^6.2",
+		"symfony/translation": "^6.2",
+		"symfony/twig-bundle": "^6.2",
+		"symfony/validator": "^6.2",
+		"willherzog/php-util": "dev-main"
+	},
+    "autoload": {
+        "psr-4": { "WHSymfony\\WHFormBundle\\": "src/" }
+    }
+}

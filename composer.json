@@ -13,6 +13,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/willherzog/php-util"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/willherzog/twig-parsedown"
 		}
 	],
     "require": {
@@ -22,7 +26,8 @@
 		"symfony/translation": "^6.2",
 		"symfony/twig-bundle": "^6.2",
 		"symfony/validator": "^6.2",
-		"willherzog/php-util": "dev-main"
+		"willherzog/php-util": "dev-main",
+		"willherzog/twig-parsedown": "dev-main"
 	},
     "autoload": {
         "psr-4": { "WHSymfony\\WHFormBundle\\": "src/" }

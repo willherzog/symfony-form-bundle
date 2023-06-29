@@ -68,7 +68,7 @@ function enableCollapsibleFieldsets(container = null) {
 	}
 }
 
-function createRemoveButtonElement( tooltip ) {
+function createRemoveButtonElement(tooltip) {
 	if( tooltip === false ) {
 		tooltip = '';
 	} else if( tooltip !== '' ) {
@@ -82,7 +82,7 @@ function createRemoveButtonElement( tooltip ) {
 	return $(`<button type="button" class="action remove"${tooltip}></button>`);
 }
 
-function setupSubFormRemoveAction( subForm, removalTooltip, callbackFn, callbackData ) {
+function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackData) {
 	const removeButton = createRemoveButtonElement(removalTooltip);
 
 	subForm.append(removeButton);

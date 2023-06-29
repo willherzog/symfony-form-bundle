@@ -163,6 +163,34 @@
 		{{~ block('form_widget_simple') }}
 {% endblock color_widget %}
 
+{%- block button_widget -%}
+	{%- set default_type = default_type|default('button') -%}
+	{%- if label is empty -%}
+		{%- if label_format is not empty -%}
+			{% set label = label_format|replace({
+				'%name%': name,
+				'%id%': id,
+			}) %}
+		{%- elseif label is same as(false) -%}
+			{% set translation_domain = false %}
+		{%- else -%}
+			{% set label = name|humanize %}
+		{%- endif -%}
+	{%- endif -%}
+			<button type="{{ type|default(default_type) }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain) }}</button>
+{%- endblock button_widget -%}
+
+{%- block submit_widget -%}
+	{%- set default_type = 'submit' -%}
+	{{ block('button_widget') }}
+{%- endblock submit_widget -%}
+
+{%- block reset_widget -%}
+	{%- set default_type = 'reset' -%}
+	{{ block('button_widget') }}
+{%- endblock reset_widget -%}
+
+
 {# Custom Widgets #}
 
 {% block toggle_switch_widget %}

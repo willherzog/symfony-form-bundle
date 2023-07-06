@@ -4,6 +4,7 @@ namespace WHSymfony\WHFormBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 use WHSymfony\WHFormBundle\Form\Type\Extension\BaseTypeExtension;
@@ -14,6 +15,9 @@ use WHSymfony\WHFormBundle\Form\Type\Extension\EnumTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\FormTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\MoneyTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\NumberTypesExtension;
+use WHSymfony\WHFormBundle\Form\Type\InfoType;
+use WHSymfony\WHFormBundle\Form\Type\ModalSelectType;
+use WHSymfony\WHFormBundle\Form\Type\ModalImageSelectType;
 use WHSymfony\WHFormBundle\Twig\WHFormExtension;
 
 /**
@@ -32,23 +36,33 @@ class WHFormBundle extends AbstractBundle
 	{
 		$container->services()
 
-			->set('whform.type.extension.base', BaseTypeExtension::class)
+			->set('whform.type_extension.base', BaseTypeExtension::class)
 				->tag('form.type_extension', ['priority' => 99])
-			->set('whform.type.extension.form', FormTypesExtension::class)
+			->set('whform.type_extension.form', FormTypesExtension::class)
 				->tag('form.type_extension', ['priority' => 66])
 
-			->set('whform.type.extension.checkbox', CheckboxTypeExtension::class)
+			->set('whform.type_extension.checkbox', CheckboxTypeExtension::class)
 				->tag('form.type_extension', ['priority' => 33])
-			->set('whform.type.extension.choice', ChoiceTypeExtension::class)
+			->set('whform.type_extension.choice', ChoiceTypeExtension::class)
 				->tag('form.type_extension', ['priority' => 33])
-			->set('whform.type.extension.collection', CollectionTypeExtension::class)
+			->set('whform.type_extension.collection', CollectionTypeExtension::class)
 				->tag('form.type_extension', ['priority' => 33])
-			->set('whform.type.extension.enum', EnumTypeExtension::class)
+			->set('whform.type_extension.enum', EnumTypeExtension::class)
 				->tag('form.type_extension', ['priority' => 33])
-			->set('whform.type.extension.money', MoneyTypeExtension::class)
+			->set('whform.type_extension.money', MoneyTypeExtension::class)
 				->tag('form.type_extension', ['priority' => 33])
-			->set('whform.type.extension.number', NumberTypesExtension::class)
+			->set('whform.type_extension.number', NumberTypesExtension::class)
 				->tag('form.type_extension', ['priority' => 33])
+
+			->set('whform.type.info', InfoType::class)
+				->args([service('form.property_accessor')->ignoreOnInvalid()])
+				->tag('form.type')
+			->set('whform.type.button_with_label', ModalSelectType::class)
+				->args([service('form.property_accessor')->ignoreOnInvalid()])
+				->tag('form.type')
+			->set('whform.type.modal_image_select', ModalImageSelectType::class)
+				->args([service('form.property_accessor')->ignoreOnInvalid(), service('translator')])
+				->tag('form.type')
 
 			->set('whform.twig.extension', WHFormExtension::class)
 				->tag('twig.extension')

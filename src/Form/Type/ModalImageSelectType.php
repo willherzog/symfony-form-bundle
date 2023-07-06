@@ -5,6 +5,7 @@ namespace WHSymfony\WHFormBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\{FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -16,8 +17,14 @@ class ModalImageSelectType extends AbstractType
 {
 	protected readonly string $buttonDefaultLabel;
 
-	public function __construct(TranslatorInterface $translator)
-	{
+	public function __construct(
+		PropertyAccessorInterface $propertyAccessor = null,
+		TranslatorInterface $translator
+	) {
+		if( $propertyAccessor !== null ) {
+			parent::__construct($propertyAccessor);
+		}
+
 		$this->buttonDefaultLabel = $translator->trans('wh_form.label.select_image');
 	}
 

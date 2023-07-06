@@ -2,7 +2,8 @@
 
 namespace WHSymfony\WHFormBundle\Form\Type;
 
-use Symfony\Component\Form\{AbstractType,FormInterface,FormView};
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\{FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\{PropertyAccess,PropertyAccessorInterface,PropertyPath,PropertyPathInterface};
 

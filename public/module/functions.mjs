@@ -11,9 +11,9 @@
  */
 
 // jQuery needs to be available, either as the global variable "$"" or the global variable "jQuery";
-// if only the latter is available, a new global variable is created with the same name as the former.
-if( typeof $ === 'undefined' && typeof jQuery === 'object' ) {
-	window.$ = jQuery;
+// if only the latter is available, a new local variable is created with the same name as the former.
+if( typeof $ === 'undefined' && typeof jQuery === 'function' ) {
+	var $ = jQuery;
 }
 
 const haveTranslator = typeof Translator === 'object' && typeof Translator.trans === 'function';

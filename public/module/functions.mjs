@@ -1,5 +1,5 @@
 /**
- * Javascript function definitions for client-side bundle features.
+ * JavaScript function definitions for client-side bundle features.
  * These all require jQuery to work.
  *
  * @uses Translator from willdurand/js-translation-bundle (if available)
@@ -9,6 +9,12 @@
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
+
+// jQuery needs to be available, either as the global variable "$"" or the global variable "jQuery";
+// if only the latter is available, a new variable is created here with the same name as the former.
+if( typeof $ === 'undefined' && typeof jQuery === 'object' ) {
+	var $ = jQuery;
+}
 
 const haveTranslator = typeof Translator === 'object' && typeof Translator.trans === 'function';
 

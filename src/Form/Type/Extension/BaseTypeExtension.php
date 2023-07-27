@@ -4,7 +4,7 @@ namespace WHSymfony\WHFormBundle\Form\Type\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\{FormInterface,FormView};
-use Symfony\Component\Form\Extension\Core\Type\{ButtonType,FormType};
+use Symfony\Component\Form\Extension\Core\Type\{ButtonType,ChoiceType,DateType,FormType};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use WHPHP\Util\StringUtil;
@@ -41,9 +41,9 @@ class BaseTypeExtension extends AbstractTypeExtension
 
 		$resolver
 			->define('use_parent_row_type')
-			->allowedTypes('bool')
-			->default(false)
-			->info('Use the block prefix of the parent form type to generate the type class for the field row.')
+			->allowedTypes('bool', 'null')
+			->default(null)
+			->info('If TRUE, the block prefix of the parent form type is used to generate the HTML type class for the field\'s row element (instead of its own block prefix). Also, by default, any type with ChoiceType or DateType as its parent will automatically use that parent\'s block prefix; if FALSE, this behavior is disabled.')
 		;
 
 		$resolver
@@ -62,19 +62,18 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$rowClasses = [];
 		$formType = $form->getConfig()->getType();
 
-		if( $options['use_parent_row_type'] && $formType->getParent() !== null ) {
-			$type = $formType->getParent()->getBlockPrefix();
+		if( $options['use_parent_row_type'] !== false && $formType->getParent() !== null && ($options['use_parent_row_type'] === true || ($formType->getParent() instanceof ChoiceType) || ($formType->getParent() instanceof DateType)) ) {
+			$blockPrefix = $formType->getParent()->getBlockPrefix();
 		} else {
-			$type = $formType->getBlockPrefix();
+			$blockPrefix = $formType->getBlockPrefix();
 		}
 
 		// Get the cardinal/HTML field type.
-		$type = match($type) {
+		$type = match($blockPrefix) {
+			'choice' => $options['expanded'] ? ($options['multiple'] ? 'checkbox' : 'radio') : 'select',
 			'integer', 'money', 'percent' => 'number',
-			'choice', 'enum' => $options['expanded'] ? ($options['multiple'] ? 'checkbox' : 'radio') : 'select',
-			'entity' => 'select',
 			'include' => 'custom',
-			default => $type
+			default => $blockPrefix
 		};
 
 		// Prepend automated classes to row class attribute.

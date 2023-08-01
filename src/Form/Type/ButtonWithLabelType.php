@@ -59,6 +59,5 @@ abstract class ButtonWithLabelType extends AbstractType
 		}
 
 		$view->vars['button_text'] = $buttonText;
-		$view->vars['translate_button_text'] = false;
 	}
 }

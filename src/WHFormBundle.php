@@ -21,6 +21,7 @@ use WHSymfony\WHFormBundle\Form\Type\Extension\MoneyTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\NumberTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\InfoType;
 use WHSymfony\WHFormBundle\Form\Type\ModalSelectType;
+use WHSymfony\WHFormBundle\Form\Type\ModalEnumSelectType;
 use WHSymfony\WHFormBundle\Form\Type\ModalImageSelectType;
 use WHSymfony\WHFormBundle\Twig\WHFormExtension;
 
@@ -100,6 +101,9 @@ class WHFormBundle extends AbstractBundle
 				->args([service('form.property_accessor')->ignoreOnInvalid()])
 				->tag('form.type')
 			->set('whform.type.modal_image_select', ModalImageSelectType::class)
+				->args([service('translator')])
+				->tag('form.type')
+			->set('whform.type.modal_enum_select', ModalEnumSelectType::class)
 				->args([service('translator')])
 				->tag('form.type')
 

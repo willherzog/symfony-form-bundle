@@ -8,7 +8,7 @@
 	{%~ else %}
 		{{~ block('form_widget_simple') }}
 	{%~ endif %}
-{% endblock form_widget %}
+{%- endblock form_widget %}
 
 {% block form_widget_simple %}
 	{%- set default_type = default_type|default('text') -%}
@@ -32,7 +32,7 @@
 
 {% block textarea_widget %}
 {{ form_indent() }}<textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-{%- endblock textarea_widget %}
+{% endblock textarea_widget %}
 
 {% block collection_widget %}
 	{%~ set attr = attr|merge({'class': ('sub-form-container group-members ' ~ row_attr.class|default(''))|trim}) %}
@@ -45,7 +45,7 @@
 			{{~ form_row(child) }}
 		{%~ endfor %}
 		{%- if add_button_position == 'inside' %}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<button type="button" class="action add-item">{{ add_button_label|trans }}</button>
+{{ form_indent() }}<button type="button" class="action add-item">{{ add_button_label|trans }}</button>
 		{%- endif -%}
 			{{~ form_rest(form) }}
 		{%- do form_decrement_indent_level() %}
@@ -58,7 +58,7 @@
 	{%~ else %}
 		{{~ block('choice_widget_collapsed') }}
 	{%~ endif %}
-{% endblock choice_widget %}
+{%- endblock choice_widget %}
 
 {% block choice_widget_expanded %}
 	{%- if expanded_wrapping_strategy == 'wrap_all' %}
@@ -85,7 +85,7 @@
 			{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
 		{%~ endfor %}
 	{%- endif %}
-{% endblock choice_widget_expanded %}
+{%- endblock choice_widget_expanded %}
 
 {% block choice_widget_collapsed %}
 	{%~ if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) %}
@@ -93,35 +93,35 @@
 	{%~ endif %}
 {{ form_indent() }}<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
 		{%- do form_increment_indent_level() %}
-		{%- if placeholder is not none %}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<option value=""{% if required and value is empty %} selected{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans(placeholder_translation_parameters, translation_domain)) }}</option>
+		{%- if placeholder is not none ~%}
+{{ form_indent() }}<option value=""{% if required and value is empty %} selected{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans(placeholder_translation_parameters, translation_domain)) }}</option>
 		{%- endif %}
 		{%~ if preferred_choices|length > 0 %}
 			{%~ set options = preferred_choices %}
             {%~ set render_preferred_choices = true %}
 			{{~ block('choice_widget_options') }}
 			{%- if choices|length > 0 and separator is not none %}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<option disabled>{{ separator }}</option>
+{{ form_indent() }}<option disabled>{{ separator }}</option>
 			{%- endif %}
 		{%~ endif %}
 		{%~ set options = choices %}
         {%~ set render_preferred_choices = false %}
 		{{~ block('choice_widget_options') }}
-		{%- do form_decrement_indent_level() %}
+		{%- do form_decrement_indent_level() ~%}
 {{ form_indent() }}</select>
 {%- endblock choice_widget_collapsed %}
 
 {% block choice_widget_options %}
 	{%- for group_label, choice in options -%}
-		{%- if choice is iterable %}
+		{%- if choice is iterable ~%}
 {{ form_indent() }}<optgroup label="{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}">
 			{%- do form_increment_indent_level() %}
 				{%~ set options = choice %}
 				{{~ block('choice_widget_options') }}
-			{%- do form_decrement_indent_level() %}
+			{%- do form_decrement_indent_level() ~%}
 {{ form_indent() }}</optgroup>
 		{%- else %}
-			{%~ set option_label = choice_translation_domain is same as(false) ? choice.label : choice.label|trans(choice.labelTranslationParameters, choice_translation_domain) %}
+			{%~ set option_label = choice_translation_domain is same as(false) ? choice.label : choice.label|trans(choice.labelTranslationParameters, choice_translation_domain) ~%}
 {{ form_indent() }}<option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if not render_preferred_choices|default(false) and choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ option_label }}</option>
 		{%- endif %}
 	{%- endfor -%}
@@ -148,7 +148,7 @@
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 	{%- endif %}
-{% endblock datetime_widget %}
+{%- endblock datetime_widget %}
 
 {% block date_widget %}
 	{%- if widget == 'single_text' %}
@@ -164,7 +164,7 @@
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 	{%- endif %}
-{% endblock date_widget %}
+{%- endblock date_widget %}
 
 {% block time_widget %}
 	{%- if widget == 'single_text' %}
@@ -179,7 +179,7 @@
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 	{%- endif %}
-{% endblock time_widget %}
+{%- endblock time_widget %}
 
 {% block week_widget %}
 	{%- if widget == 'single_text' %}
@@ -192,87 +192,87 @@
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 	{%- endif %}
-{% endblock week_widget %}
+{%- endblock week_widget %}
 
 {% block number_widget %}
 	{{~ block('form_widget_simple') }}
-{% endblock number_widget %}
+{%- endblock number_widget %}
 
 {% block integer_widget %}
 	{%~ set default_type = 'number' %}
 	{{~ block('form_widget_simple') }}
-{% endblock integer_widget %}
+{%- endblock integer_widget %}
 
 {% block money_widget %}
 	{%- if symbol is not empty %}
 {{ form_indent() }}<div class="faux-number-widget with-type-symbol">
 		{%- do form_increment_indent_level() %}
 		{%- if symbol_placement == 'before' %}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<span class="input-type-symbol before">{{ symbol }}</span>
+{{ form_indent() }}<span class="input-type-symbol before">{{ symbol }}</span>
 		{%- endif %}
 		{{~ block('form_widget_simple') }}
 		{%- if symbol_placement == 'after' %}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<span class="input-type-symbol after">{{ symbol }}</span>
+{{ form_indent() }}<span class="input-type-symbol after">{{ symbol }}</span>
 		{%- endif %}
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 	{%- else %}
 		{{~ block('form_widget_simple') }}
 	{%- endif %}
-{% endblock money_widget %}
+{%- endblock money_widget %}
 
 {% block url_widget %}
 	{%~ set default_type = 'url' %}
 	{{~ block('form_widget_simple') }}
-{% endblock url_widget %}
+{%- endblock url_widget %}
 
 {% block search_widget %}
 	{%~ set default_type = 'search' %}
 	{{~ block('form_widget_simple') }}
-{% endblock search_widget %}
+{%- endblock search_widget %}
 
 {% block percent_widget %}
 	{%- if symbol is not empty %}
 {{ form_indent() }}<div class="faux-number-widget with-type-symbol">
 		{%- do form_increment_indent_level() %}
 			{{~ block('form_widget_simple') }}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<span class="input-type-symbol after">{{ symbol }}</span>
+{{ form_indent() }}<span class="input-type-symbol after">{{ symbol }}</span>
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 	{%- else %}
 		{{~ block('form_widget_simple') }}
 	{%- endif %}
-{% endblock percent_widget %}
+{%- endblock percent_widget %}
 
 {% block password_widget %}
 	{%~ set default_type = 'password' %}
 	{{~ block('form_widget_simple') }}
-{% endblock password_widget %}
+{%- endblock password_widget %}
 
 {% block hidden_widget %}
 	{%~ set default_type = 'hidden' %}
 	{{~ block('form_widget_simple') }}
-{% endblock hidden_widget %}
+{%- endblock hidden_widget %}
 
 {% block email_widget %}
 	{%~ set default_type = 'email' %}
 	{{~ block('form_widget_simple') }}
-{% endblock email_widget %}
+{%- endblock email_widget %}
 
 {% block range_widget %}
 	{%~ set default_type = 'range' %}
 	{{~ block('form_widget_simple') }}
-{% endblock range_widget %}
+{%- endblock range_widget %}
 
 {% block tel_widget %}
 	{%~ set default_type = 'tel' %}
 	{{~ block('form_widget_simple') }}
-{% endblock tel_widget %}
+{%- endblock tel_widget %}
 
 {% block color_widget %}
 	{%~ set default_type = 'color' %}
 	{{~ block('form_widget_simple') }}
-{% endblock color_widget %}
+{%- endblock color_widget %}
 
 {% block button_widget %}
 	{%- set default_type = default_type|default('button') -%}
@@ -294,12 +294,12 @@
 {% block submit_widget %}
 	{%- set default_type = 'submit' -%}
 	{{~ block('button_widget') }}
-{% endblock submit_widget %}
+{%- endblock submit_widget %}
 
 {% block reset_widget %}
 	{%- set default_type = 'reset' -%}
 	{{~ block('button_widget') }}
-{% endblock reset_widget %}
+{%- endblock reset_widget %}
 
 
 {# Custom Widgets #}
@@ -307,7 +307,7 @@
 {% block toggle_switch_widget %}
 {{ form_indent() }}<button type="button" class="stylable-widget toggle-switch-widget{% if checked %} enabled{% endif %}" role="presentation"></button>
 	{{~ block('checkbox_widget') }}
-{% endblock toggle_switch_widget %}
+{%- endblock toggle_switch_widget %}
 
 {% block toggle_switch_with_settings_widget %}
 	{{~ block('toggle_switch_widget') }}
@@ -330,18 +330,18 @@
 	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
 {{ form_indent() }}<button type="button" id="{{ id }}" {{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
-{% endblock modal_editor_widget %}
+{%- endblock modal_editor_widget %}
 
 {% block modal_select_widget %}
 	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
 	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
 {{ form_indent() }}<button type="button" id="{{ id }}" {{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_text }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
-{% endblock modal_select_widget %}
+{%- endblock modal_select_widget %}
 
 {% block include_widget %}
 	{{~ include(template, template_context) }}
-{% endblock include_widget %}
+{%- endblock include_widget %}
 
 {# Labels #}
 
@@ -349,20 +349,20 @@
 	{%- if label is not same as(false) %}
 		{%~ if not compound %}
 			{%~ set label_attr = label_attr|merge({'for': id}) %}
-		{%~ endif %}
+		{%~ endif ~%}
 {{ form_indent() }}<{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
 			{{- block('form_label_content') -}}
 		</{{ element|default('label') }}>
 	{%- endif %}
-{% endblock form_label %}
+{%- endblock form_label %}
 
 {% block fieldset_label %}
-	{%- if label is not same as(false) %}
+	{%- if label is not same as(false) ~%}
 {{ form_indent() }}<legend{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
 			{{- block('form_label_content') -}}
 		</legend>
-	{%- endif %}
-{% endblock fieldset_label %}
+	{%- endif -%}
+{%- endblock fieldset_label %}
 
 {# Help #}
 
@@ -379,28 +379,28 @@
 			{%~ endif %}
 			{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
-		{%- else %}
+		{%~ else %}
 			{%~ set enable_line_breaks = help_markdown_lines is same as('line_breaks_only') %}
 {{ form_indent() }}<p id="{{ id }}-help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
 			{%- do form_increment_indent_level() %}
 			{%~ if translation_domain is same as(false) %}
-				{%~ if help_html %}
+				{%~ if help_html ~%}
 					{{~ help|markdown_line_only(enable_line_breaks)|indent_lines(form_current_indent_level()) }}
-				{%~ else %}
+				{%~ else ~%}
 					{{~ help|indent_lines(form_current_indent_level()) }}
 				{%~ endif %}
 			{%~ else %}
-				{%~ if help_html %}
+				{%~ if help_html ~%}
 					{{~ help|trans(help_translation_parameters, translation_domain)|markdown_line_only(enable_line_breaks)|indent_lines(form_current_indent_level()) }}
-				{%~ else %}
+				{%~ else ~%}
 					{{~ help|trans(help_translation_parameters, translation_domain)|indent_lines(form_current_indent_level()) }}
 				{%~ endif %}
 			{%~ endif %}
 			{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</p>
-		{%- endif %}
+		{%~ endif %}
 	{%- endif -%}
-{% endblock form_help %}
+{%- endblock form_help %}
 
 {# Rows #}
 
@@ -428,7 +428,7 @@
 {% block collection_entry_row %}
 	{%- if form|length > 0 %}
 		{%~ set indent = form_indent(form) %}
-		{%~ set attr = form_attr_html_classes(attr, ['sub-form', 'group-member']) %}
+		{%~ set attr = form_attr_html_classes(attr, ['sub-form', 'group-member']) ~%}
 {{ indent }}<div {{ block('widget_container_attributes') }}>
 		{%- do form_increment_indent_level() %}
 			{{~ form_errors(form) }}
@@ -438,7 +438,7 @@
 	{%- else %}
 		{{~ form_row(form) }}
 	{%- endif %}
-{% endblock collection_entry_row %}
+{%- endblock collection_entry_row %}
 
 {% block collection_row %}
 	{%- set widget_vars = {} -%}
@@ -455,12 +455,12 @@
 		{%~ endif %}
 		{%- if add_button_position == 'before' %}
 {{ indent }}{{ form_indent_prototype|raw }}<button type="button" class="action {{ add_button_class }}">{{ add_button_label|trans }}</button>
-		{%- endif %}
+		{%~ endif %}
 			{{~ form_widget(form, widget_vars) }}
 			{{~ form_errors(form) }}
 		{%- if add_button_position == 'after' %}
 {{ indent }}{{ form_indent_prototype|raw }}<button type="button" class="action {{ add_button_class }}">{{ add_button_label|trans }}</button>
-		{%- endif %}
+		{%~ endif %}
 		{%- if help_text_position == 'after' %}
 			{{~ form_help(form) }}
 		{%- endif %}
@@ -516,17 +516,17 @@
 	{%~ set indent = form_indent(form) %}
 	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-field'], addl_classes) %}
 {{ indent }}<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
-	{%- do form_increment_indent_level() %}
-		{%~ if label_after_widget %}
+	{%~ do form_increment_indent_level() %}
+		{%- if label_after_widget %}
 			{{~ form_widget(form, widget_vars) }}
 			{{~ form_label(form) }}
-		{%~ else %}
+		{%- else %}
 			{{~ form_label(form) }}
 			{{~ form_widget(form, widget_vars) }}
-		{%~ endif %}
+		{%- endif %}
 		{{~ form_errors(form) }}
 		{{~ form_help(form) }}
-	{%- do form_decrement_indent_level() %}
+	{%~ do form_decrement_indent_level() %}
 {{ indent }}</div>
 {%- endblock checkbox_row %}
 
@@ -540,7 +540,7 @@
 
 {% block hidden_row %}
 	{{~ form_widget(form) }}
-{% endblock hidden_row %}
+{%- endblock hidden_row %}
 
 {# Misc #}
 
@@ -548,7 +548,7 @@
 	{{~ form_start(form) }}
 		{{~ form_widget(form) }}
 	{{~ form_end(form) }}
-{% endblock form %}
+{%- endblock form %}
 
 {% block form_start %}
 	{%~ do form.setMethodRendered() %}
@@ -564,7 +564,7 @@
 {{ indent }}{{ form_indent_prototype|raw }}<input type="hidden" name="_method" value="{{ method }}">
 	{%- endif %}
 	{%~ do form_increment_indent_level() %}
-{% endblock form_start %}
+{%- endblock form_start %}
 
 {% block form_end %}
 	{%~ do form_decrement_indent_level() %}
@@ -572,15 +572,15 @@
 		{{~ form_rest(form) }}
 	{%~ endif %}
 {{ form_indent() }}</form>
-{% endblock form_end %}
+{%- endblock form_end %}
 
 {% block form_rest %}
-	{%~ for child in form %}
+	{%- for child in form -%}
 		{%~ if not child.rendered %}
 			{{~ form_row(child) }}
 		{%~ endif %}
-	{%~ endfor %}
-	{%~ if not form.methodRendered and form is rootform %}
+	{%- endfor -%}
+	{%- if not form.methodRendered and form is rootform -%}
 		{%~ do form.setMethodRendered() %}
 		{%~ set method = method|upper %}
 		{%~ if method in ["GET", "POST"] %}
@@ -589,20 +589,20 @@
 			{%~ set form_method = "POST" %}
 		{%~ endif %}
 		{%- if form_method != method %}
-{{ form_indent() }}{{ form_indent_prototype|raw }}<input type="hidden" name="_method" value="{{ method }}">
-		{%- endif %}
-	{%~ endif -%}
-{% endblock form_rest %}
+{{ form_indent() }}<input type="hidden" name="_method" value="{{ method }}">
+		{%- endif -%}
+	{%- endif -%}
+{%- endblock form_rest %}
 
-{% block form_errors %}
+{%- block form_errors -%}
 	{%- if errors|length > 0 %}
 {{ form_indent() }}<ul class="error-list">
 		{%- for error in errors %}
 {{ form_indent() }}{{ form_indent_prototype|raw }}<li class="error">{{ error.message }}</li>
 		{%- endfor %}
 {{ form_indent() }}</ul>
-	{%- endif %}
-{% endblock form_errors %}
+	{%- endif -%}
+{%- endblock form_errors -%}
 
 {# Support #}
 
@@ -610,7 +610,7 @@
 	{%~ for child in form|filter(child => not child.rendered) %}
 		{{~ form_row(child) }}
 	{%~ endfor %}
-{% endblock form_rows %}
+{%- endblock form_rows %}
 
 {%- block form_widget_hidden -%}
 <input type="hidden" class="form-widget-actual" name="{{ full_name }}"{% if required %} required{% endif %}{% if value is not empty %} value="{{ value }}"{% endif %}>

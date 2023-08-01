@@ -5,7 +5,6 @@ namespace WHSymfony\WHFormBundle;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
@@ -33,6 +32,9 @@ class WHFormBundle extends AbstractBundle
 	{
 		$definition->rootNode()
 			->children()
+				->scalarNode('app_dir')
+					->defaultValue('%kernel.project_dir%')
+					->info('Path within which the file_exists() Twig function will check for file existence.')
 				->integerNode('indent_spaces')
 					->defaultValue(0)
 					->info('Amount of spaces to use for each level of indentation (positive integer = that number of spaces is used instead of a tab character).')
@@ -108,7 +110,7 @@ class WHFormBundle extends AbstractBundle
 				->tag('twig.extension')
 
 			->set('whtwig.extension.generic', GenericExtension::class)
-				->args([param('%kernel.project_dir%'), $config['indent_spaces']])
+				->args([$config['form']['app_dir'], $config['indent_spaces']])
 				->tag('twig.extension')
 		;
 	}

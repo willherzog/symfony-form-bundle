@@ -111,7 +111,7 @@ class WHFormBundle extends AbstractBundle
 				->tag('twig.extension')
 
 			->set('whtwig.extension.generic', GenericExtension::class)
-				->args([$config['form']['app_dir'], $config['indent_spaces']])
+				->args([$config['app_dir'], $config['indent_spaces']])
 				->tag('twig.extension')
 		;
 	}

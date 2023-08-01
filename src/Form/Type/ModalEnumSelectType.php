@@ -10,18 +10,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use WHSymfony\WHFormBundle\Config\LabelAwareEnum;
 
 /**
- * Enumerator-specific version of ModalSelectType with a suitable default for the "button_text" option.
+ * Enumerator-specific version of ModalSelectType with a suitable automated default for the "button_text" option.
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
 class ModalEnumSelectType extends AbstractType
 {
-	protected readonly string $buttonDefaultLabel;
-
-	public function __construct(TranslatorInterface $translator)
-	{
-		$this->buttonDefaultLabel = $translator->trans('wh_form.label.click_to_change');
-	}
+	public function __construct(protected readonly TranslatorInterface $translator)
+	{}
 
 	public function getParent(): string
 	{
@@ -38,8 +34,17 @@ class ModalEnumSelectType extends AbstractType
 					return $options['class']::tryFrom($currentValue)?->getLabel() ?? $currentValue;
 				}
 
-				return $this->buttonDefaultLabel;
+				return $options['default_button_label'];
 			})
+		;
+
+		$resolver
+			->define('default_button_label')
+				->default('wh_form.label.click_to_change')
+				->allowedTypes('string')
+		;
+
+		$resolver
 			->define('class')
 				->required()
 				->allowedTypes('string')
@@ -49,6 +54,7 @@ class ModalEnumSelectType extends AbstractType
 
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
-		$view->vars['attr']['data-default-label'] = $this->buttonDefaultLabel;
+		$view->vars['translate_button_text'] = true;
+		$view->vars['attr']['data-default-label'] = $this->translator->trans($options['default_button_label']);
 	}
 }

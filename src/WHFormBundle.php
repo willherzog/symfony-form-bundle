@@ -35,6 +35,7 @@ class WHFormBundle extends AbstractBundle
 				->scalarNode('app_dir')
 					->defaultValue('%kernel.project_dir%')
 					->info('Path within which the file_exists() Twig function will check for file existence.')
+				->end()
 				->integerNode('indent_spaces')
 					->defaultValue(0)
 					->info('Amount of spaces to use for each level of indentation (positive integer = that number of spaces is used instead of a tab character).')

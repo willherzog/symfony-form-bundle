@@ -62,7 +62,12 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$rowClasses = [];
 		$formType = $form->getConfig()->getType();
 
-		if( $options['use_parent_row_type'] !== false && $formType->getParent() !== null && ($options['use_parent_row_type'] === true || ($formType->getParent()->getInnerType() instanceof ChoiceType) || ($formType->getParent()->getInnerType() instanceof DateType)) ) {
+		if( $options['use_parent_row_type'] !== false
+			&& $formType->getParent() !== null
+			&& ($options['use_parent_row_type'] === true
+			|| ($formType->getParent()->getInnerType() instanceof ChoiceType)
+			|| ($formType->getParent()->getInnerType() instanceof DateType))
+		) {
 			$blockPrefix = $formType->getParent()->getBlockPrefix();
 		} else {
 			$blockPrefix = $formType->getBlockPrefix();

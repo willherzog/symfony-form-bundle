@@ -10,6 +10,7 @@ It currently includes the following extensions:
 * `CollectionTypeExtension`  – Adds the `add_button_label`, `add_button_position`, `add_button_class` and `help_text_position` options to `CollectionType` field groups
 * `EnumTypeExtension` – leverages the included `LabelAwareEnum` and `LimitedChoicesEnum` interfaces to add automation by default to the `choice_label` and `choice_filter` options for EnumType fields
 * `CheckboxTypeExtension` – Adds the `label_after_widget` option to `CheckboxType` fields
+* `ButtonTypeExtension` – Adds the `help`, `help_attr`, `help_html` and `help_translation_parameters` options to `ButtonType` fields
 * `NumberTypesExtension` – Automatically adds the HTML class "faux-number-widget" when the `html5` option is FALSE for `NumberType`, `MoneyType` and `PercentType` fields, allowing these to more easily have unified styling applied that distinguishes their widgets from other text inputs
 * `MoneyTypeExtension` – Alters the original approach of Symfony's `MoneyType` fields to allow more flexibility with the money symbol
 
@@ -21,7 +22,7 @@ This bundle includes the following custom types:
 * `IncludeType` – Allows inclusion of a Twig template fragment within a form
 * `ActionType` – A custom alternative to Symfony's `ButtonType` which has a separate `button_label` option (in addition to the standard field `label`); it also always has the HTML class "action"
 * `ModalEditorType` – Similar to `ActionType`, but is mapped to the underlying data (using a hidden input) and always includes the HTML attribute `aria-haspopup="dialog"`
-* `ModalSelectType` & `ModalImageSelectType` – Button-based types specifically for selecting a value from a modal dialog (the value is stored in a hidden input); these also always includes the HTML attribute `aria-haspopup="dialog"`
+* `ModalSelectType`, `ModalImageSelectType` and `ModalEnumSelectType` – Button-based types specifically for selecting a value from a modal dialog (the value is stored in a hidden input); these also always includes the HTML attribute `aria-haspopup="dialog"`
 
 There are also several changes directly in the form layout template (based on the `form_div_layout.html.twig` template from `symfony/twig-bridge`):
 

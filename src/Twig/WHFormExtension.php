@@ -2,7 +2,10 @@
 
 namespace WHSymfony\WHFormBundle\Twig;
 
+use Symfony\Component\Form\FormView;
+
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
 
 use WHPHP\Util\StringUtil;
@@ -10,14 +13,57 @@ use WHPHP\Util\StringUtil;
 /**
  * @author Will Herzog <willherzog@gmail.com>
  */
-class WHFormExtension extends AbstractExtension
+class WHFormExtension extends AbstractExtension implements GlobalsInterface
 {
+	private int $indentLevel;
+	private string $indentPrototype;
+
+	public function __construct(protected readonly int $defaultFormIndent, int $indentSpaces)
+	{
+		$this->indentLevel = $defaultFormIndent;
+		$this->indentPrototype = $indentSpaces > 0 ? str_repeat(' ', $indentSpaces) : "\t";
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getGlobals(): array
+	{
+		return [
+			'form_indent_prototype' => $this->indentPrototype
+		];
+	}
+
 	/**
 	 * @inheritDoc
 	 */
 	public function getFunctions(): array
 	{
 		return [
+			new TwigFunction('form_indent', function (FormView $form = null, bool $forceResetLevel = false): string {
+				if( $form->vars['indent_levels'] !== null || $forceResetLevel ) {
+					$this->indentLevel = $form->vars['indent_levels'] ?? $this->defaultFormIndent;
+				}
+
+				return str_repeat($this->indentPrototype, $this->indentLevel);
+			}),
+
+			new TwigFunction('form_increment_indent_level', function (int $levelsToIncrement = 1): void {
+				$this->indentLevel += $levelsToIncrement;
+			}),
+
+			new TwigFunction('form_decrement_indent_level', function (int $levelsToDecrement = 1): void {
+				if( $levelsToDecrement > $this->indentLevel ) {
+					$this->indentLevel = 0;
+				} else {
+					$this->indentLevel -= $levelsToDecrement;
+				}
+			}),
+
+			new TwigFunction('form_current_indent_level', function (): string {
+				return $this->indentLevel;
+			}),
+
 			new TwigFunction('form_attr_html_classes', function (array $attr, array $prefixes, array $suffixes = []): array {
 				$classes = $prefixes;
 

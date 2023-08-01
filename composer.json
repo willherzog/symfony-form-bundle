@@ -16,6 +16,10 @@
 		},
 		{
 			"type": "vcs",
+			"url": "https://github.com/willherzog/twig-generic"
+		},
+		{
+			"type": "vcs",
 			"url": "https://github.com/willherzog/twig-parsedown"
 		}
 	],
@@ -27,6 +31,7 @@
 		"symfony/twig-bundle": "^6.2",
 		"symfony/validator": "^6.2",
 		"willherzog/php-util": "dev-main",
+		"willherzog/twig-generic": "dev-main",
 		"willherzog/twig-parsedown": "dev-main"
 	},
     "autoload": {

@@ -35,7 +35,7 @@ Lastly (although this list of the bundle's features is hardly exhaustive), this 
 * `module/functions.mjs` – Exports the `activateToggleSwitch`, `enableCollapsibleFieldsets`, `createRemoveButtonElement` and `setupSubFormRemoveAction` functions (the latter two are intended for use with entries of `CollectionType` field groups)
 * `style/form.css` – Functional-only style rules for this bundle's features
 
-\* I intend to make these features configurable at some point.
+\* These features are configurable.
 
 
 Installation

@@ -21,6 +21,9 @@ class BaseTypeExtension extends AbstractTypeExtension
 		return [ButtonType::class, FormType::class];
 	}
 
+	public function __construct(protected readonly bool $idAttributesUseDashes)
+	{}
+
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setInfo('help_html', 'Enables use of the Markdown filter with help text (see the "form_help" block in form_layout.html.twig).');
@@ -52,10 +55,18 @@ class BaseTypeExtension extends AbstractTypeExtension
 			->default(false)
 			->info('Field type does not allow its value to be changed: skip adding required/disabled classes.')
 		;
+
+		$resolver
+			->define('indent_levels')
+			->allowedTypes('int', 'null')
+			->default(null)
+			->info('How many indentation levels to use (instead of the configured default) if this is a root form.')
+		;
 	}
 
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
+		$view->vars['indent_levels'] = $form->isRoot() ? $options['indent_levels'] : null;
 		$view->vars['translate_attributes'] = $options['translate_attributes'];
 		$view->vars['help_markdown_lines'] = $options['help_markdown_lines'];
 
@@ -130,10 +141,12 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$view->vars['row_attr']['class'] = $rowClassesStr;
 
 		// Use dash instead of underscore as the separator in the widget ID attribute.
-		if( $view->parent && $view->parent->vars['full_name'] !== '' ) {
-			$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $name);
-		} else {
-			$view->vars['id'] = $name;
+		if( $this->idAttributesUseDashes ) {
+			if( $view->parent && $view->parent->vars['full_name'] !== '' ) {
+				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $name);
+			} else {
+				$view->vars['id'] = $name;
+			}
 		}
 	}
 }

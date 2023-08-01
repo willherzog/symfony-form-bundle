@@ -41,7 +41,9 @@ abstract class ButtonWithLabelType extends AbstractType
 		$formData = $form->getData();
 
 		if( is_callable($textSetter) ) {
-			$buttonText = $textSetter($form);
+			$optionsFiltered = $options;
+			unset($optionsFiltered['button_text']);
+			$buttonText = $textSetter($form, $optionsFiltered);
 		} elseif( is_array($formData) || is_object($formData) ) {
 			if( is_string($textSetter) ) {
 				$textSetter = new PropertyPath($textSetter);

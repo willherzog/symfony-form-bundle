@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use WHTwig\Twig\GenericExtension;
 
 use WHSymfony\WHFormBundle\Form\Type\Extension\BaseTypeExtension;
+use WHSymfony\WHFormBundle\Form\Type\Extension\ButtonTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\CheckboxTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\ChoiceTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\CollectionTypeExtension;
@@ -68,9 +69,11 @@ class WHFormBundle extends AbstractBundle
 	public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
 	{
 		$container->services()
+			->set('whform.type_extension.button', ButtonTypeExtension::class)
+				->tag('form.type_extension', ['priority' => 99])
 			->set('whform.type_extension.base', BaseTypeExtension::class)
 				->args([$config['form']['id_attributes_use_dashes']])
-				->tag('form.type_extension', ['priority' => 99])
+				->tag('form.type_extension', ['priority' => 97])
 		;
 
 		if( $config['form']['default_optional'] ) {

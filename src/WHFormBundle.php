@@ -38,7 +38,6 @@ class WHFormBundle extends AbstractBundle
 					->info('Amount of spaces to use for each level of indentation (positive integer = that number of spaces is used instead of a tab character).')
 				->end()
 				->arrayNode('form')
-					->isRequired()
 					->addDefaultsIfNotSet()
 					->children()
 						->integerNode('default_indent')

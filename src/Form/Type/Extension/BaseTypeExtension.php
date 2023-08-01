@@ -109,7 +109,9 @@ class BaseTypeExtension extends AbstractTypeExtension
 			}
 		}
 
-		if( !$options['immutable'] ) {
+		if( $options['immutable'] ) {
+			$rowClasses[] = 'immutable';
+		} else {
 			if( isset($view->vars['required']) && $view->vars['required'] ) {
 				if( !$view->vars['compound'] ) {
 					$rowClasses[] = 'required';

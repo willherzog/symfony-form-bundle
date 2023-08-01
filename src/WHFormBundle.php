@@ -2,6 +2,7 @@
 
 namespace WHSymfony\WHFormBundle;
 
+use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -28,6 +29,35 @@ use WHSymfony\WHFormBundle\Twig\WHFormExtension;
  */
 class WHFormBundle extends AbstractBundle
 {
+	public function configure(DefinitionConfigurator $definition): void
+	{
+		$definition->rootNode()
+			->children()
+				->integerNode('indent_spaces')
+					->defaultValue(0)
+					->info('Amount of spaces to use for each level of indentation (positive integer = that number of spaces is used instead of a tab character).')
+				->end()
+				->arrayNode('form')
+					->isRequired()
+					->addDefaultsIfNotSet()
+					->children()
+						->integerNode('default_indent')
+							->defaultValue(2)
+							->info('Indentation level to use by default for root forms. Note the indentation levels of child forms are automatically incremented based on the indentation level of their parent form(s).')
+						->end()
+						->booleanNode('default_optional')
+							->defaultTrue()
+							->info('Whether to make the "required" option default to FALSE.')
+						->end()
+						->booleanNode('id_attributes_use_dashes')
+							->defaultTrue()
+							->info('Whether to convert underscores to dashes for form widget "id" attributes.')
+						->end()
+					->end()
+				->end()
+			->end()
+		;
+	}
 	public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
 	{
 		$container->extension('twig', [

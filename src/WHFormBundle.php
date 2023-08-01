@@ -33,7 +33,7 @@ class WHFormBundle extends AbstractBundle
 		$definition->rootNode()
 			->children()
 				->scalarNode('app_dir')
-					->defaultValue('%kernel.project_dir%')
+					->defaultValue('%kernel.project_dir%/')
 					->info('Path within which the file_exists() Twig function will check for file existence.')
 				->end()
 				->integerNode('indent_spaces')

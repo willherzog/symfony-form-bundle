@@ -53,7 +53,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 			->define('immutable')
 			->allowedTypes('bool')
 			->default(false)
-			->info('Field type does not allow its value to be changed: skip adding required/disabled classes.')
+			->info('Field type does not allow its value to be changed: skip adding required/disabled classes. Also adds the row class "immutable" and the boolean "readonly" attribute to the widget.')
 		;
 
 		$resolver
@@ -122,6 +122,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 
 		if( $options['immutable'] ) {
 			$rowClasses[] = 'immutable';
+			$view->vars['attr']['readonly'] = true;
 		} else {
 			if( isset($view->vars['required']) && $view->vars['required'] ) {
 				if( !$view->vars['compound'] ) {

@@ -20,7 +20,10 @@ class DividerType extends AbstractType
 				'mapped' => false,
 				'required' => false,
 				'label' => false,
-				'immutable' => true
+				'immutable' => true,
+				'attr' => [
+					'class' => 'form-divider'
+				]
 			])
 		;
 	}

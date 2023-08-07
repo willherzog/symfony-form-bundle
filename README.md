@@ -20,6 +20,7 @@ This bundle includes the following custom types:
 * `ToggleSwitchType` & `ToggleSwitchWithSettingsType` – Visual variation of `CheckboxType` which uses a `<button>` element to control interaction (these depend on a JavaScript function for activation); the latter type also includes a "Settings" button intended to open a modal dialog
 * `InfoType` – Provides a way to display a current value within a form without allowing it to be processed upon form submission
 * `IncludeType` – Allows inclusion of a Twig template fragment within a form
+* `DividerType` – Allows inclusion of a horizontal rule (i.e. an `<hr>` tag) within a form
 * `ActionType` – A custom alternative to Symfony's `ButtonType` which has a separate `button_label` option (in addition to the standard field `label`); it also always has the HTML class "action"
 * `ModalEditorType` – Similar to `ActionType`, but is mapped to the underlying data (using a hidden input) and always includes the HTML attribute `aria-haspopup="dialog"`
 * `ModalSelectType`, `ModalImageSelectType` and `ModalEnumSelectType` – Button-based types specifically for selecting a value from a modal dialog (the value is stored in a hidden input); these also always includes the HTML attribute `aria-haspopup="dialog"`

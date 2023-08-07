@@ -343,6 +343,10 @@
 	{{~ include(template, template_context) }}
 {%- endblock include_widget %}
 
+{% block divider_widget %}
+{{ form_indent() }}<hr {{ block('attributes') }}>
+{%- endblock divider_widget %}
+
 {# Labels #}
 
 {% block form_label %}
@@ -541,6 +545,10 @@
 {% block hidden_row %}
 	{{~ form_widget(form) }}
 {%- endblock hidden_row %}
+
+{% block divider_row %}
+	{{~ form_widget(form) }}
+{%- endblock divider_row %}
 
 {# Misc #}
 

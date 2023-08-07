@@ -19,6 +19,7 @@ class IncludeType extends AbstractType
 				'compound' => false,
 				'mapped' => false,
 				'required' => false,
+				'immutable' => true,
 				'context' => []
 			])
 			->setDefined('template')

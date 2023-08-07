@@ -19,7 +19,8 @@ class DividerType extends AbstractType
 				'compound' => false,
 				'mapped' => false,
 				'required' => false,
-				'label' => false
+				'label' => false,
+				'immutable' => true
 			])
 		;
 	}

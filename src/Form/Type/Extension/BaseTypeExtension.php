@@ -4,7 +4,7 @@ namespace WHSymfony\WHFormBundle\Form\Type\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\{FormInterface,FormView};
-use Symfony\Component\Form\Extension\Core\Type\{ButtonType,ChoiceType,DateType,FormType};
+use Symfony\Component\Form\Extension\Core\Type\{ButtonType,ChoiceType,DateType,FormType,TextType,TextareaType};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use WHPHP\Util\StringUtil;
@@ -122,7 +122,12 @@ class BaseTypeExtension extends AbstractTypeExtension
 
 		if( $options['immutable'] ) {
 			$rowClasses[] = 'immutable';
-			$view->vars['attr']['readonly'] = true;
+
+			if( ($formType->getParent()->getInnerType() instanceof TextType)
+				|| ($formType->getParent()->getInnerType() instanceof TextareaType)
+			) {
+				$view->vars['attr']['readonly'] = true;
+			}
 		} else {
 			if( isset($view->vars['required']) && $view->vars['required'] ) {
 				if( !$view->vars['compound'] ) {

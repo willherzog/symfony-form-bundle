@@ -59,6 +59,7 @@ class WHFormBundle extends AbstractBundle
 			->end()
 		;
 	}
+
 	public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
 	{
 		$container->extension('twig', [

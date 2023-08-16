@@ -1,4 +1,4 @@
-# symfony-form-bundle
+# Symfony Form Bundle
 An assortment of mostly relatively small changes and extensions to the Symfony Form component.
 This bundle's focus is primarily on form presentation (as opposed to form processing).
 

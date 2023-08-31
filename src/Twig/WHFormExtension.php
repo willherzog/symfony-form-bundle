@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormView;
 
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
-use Twig\TwigFunction;
+use Twig\{TwigFilter,TwigFunction};
 
 use WHPHP\Util\StringUtil;
 
@@ -31,6 +31,18 @@ class WHFormExtension extends AbstractExtension implements GlobalsInterface
 	{
 		return [
 			'form_indent_prototype' => $this->indentPrototype
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getFilters(): array
+	{
+		return [
+			new TwigFilter('form_trim_trailing_newlines', function (string $str, string $newlineChars = "\n\r"): string {
+				return rtrim($str, $newlineChars);
+			}, ['is_safe' => ['all']])
 		];
 	}
 

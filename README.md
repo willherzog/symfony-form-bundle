@@ -8,7 +8,7 @@ This bundle's focus is primarily on form presentation (as opposed to form proces
 * `FormTypesExtension` – Makes most core Symfony types default to not being required* (field groups—`CollectionType` in particular—are not included)
 * `ChoiceTypeExtension` – Adds the `expanded_wrapping_strategy` and `placeholder_translation_parameters` options to `ChoiceType` fields
 * `CollectionTypeExtension`  – Adds the `add_button_label`, `add_button_position`, `add_button_class` and `help_text_position` options to `CollectionType` field groups
-* `EnumTypeExtension` – leverages the included `LabelAwareEnum` and `LimitedChoicesEnum` interfaces to add automation by default to the `choice_label` and `choice_filter` options for EnumType fields
+* `EnumTypeExtension` – Leverages the included `LabelAwareEnum` and `LimitedChoicesEnum` interfaces to add automation by default to the `choice_label` and `choice_filter` options for EnumType fields
 * `CheckboxTypeExtension` – Adds the `label_after_widget` option to `CheckboxType` fields
 * `ButtonTypeExtension` – Adds the `help`, `help_attr`, `help_html` and `help_translation_parameters` options to `ButtonType` fields
 * `NumberTypesExtension` – Automatically adds the HTML class "faux-number-widget" when the `html5` option is FALSE for `NumberType`, `MoneyType` and `PercentType` fields, allowing these to more easily have unified styling applied that distinguishes their widgets from other text inputs

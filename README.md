@@ -28,9 +28,12 @@ This bundle includes the following custom types:
 There are also several changes directly in the form layout template (based on the `form_div_layout.html.twig` template from `symfony/twig-bridge`):
 
 * All regular field rows automatically have the HTML class "form-field", all `CollectionType` rows have the HTML class "form-group" and rows for Symfony's button types have the HTML class "form-action"
-* Form/field errors are output as an unordered list—the list has the HTML class "error-list" and the items have the class "error"
 * The "widget" (i.e. container element) for `CollectionType` field groups has the HTML classes "sub-form-container" and "group-members" automatically added; entries with multiple fields receive the HTML classes "sub-form" and "group-member"
-* Widget blocks for `MoneyType` and `PercentType` fields (whenever they have a symbol set) include an "input-type-symbol" (using `<span>`), which is wrapped—together with the actual input element—in a `<div>` with the HTML classes "faux-number-widget" and "with-type-symbol" (the latter class is also added to their rows for maximum versatility with styling the symbol elements)
+* Widget blocks for `MoneyType` and `PercentType` fields—whenever they have a symbol set—include an "input-type-symbol" (using `<span>`), which is wrapped—together with the actual input element—in a `<div>` with the HTML classes "faux-number-widget" and "with-type-symbol" (the latter class is also added to their rows for maximum versatility with styling the symbol elements)
+* Form/field errors are output as an unordered list—the list has the HTML class "error-list" and the items have the class "error"
+* Automatically-adjusting indentation levels are applied to the HTML output using the custom Twig functions `form_indent()`, `form_current_indent_level()`, `form_increment_indent_level()`, `form_decrement_indent_level()` and `form_set_indent_level()` (note: these last three should only be used w/the Twig `{% do %}` tag since they don't return anything)
+  * The default starting indentation level is 2 when not using `form_set_indent_level()` (calling it without an argument will reset the level to this default)
+  * Tabs are used for this indentation by default, but you can change it to use spaces instead with the `indent_spaces` config key (e.g. set it to `4` to use four spaces for each level of indentation) (note: this config key also controls the output of the `indent_lines` filter from my generic Twig extension)
 
 Lastly (although this list of the bundle's features is hardly exhaustive), this bundle includes the following static/client-side files, which should be available under your project's `public/bundles/whform/` directory:
 

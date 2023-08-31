@@ -33,7 +33,7 @@ There are also several changes directly in the form layout template (based on th
 * Form/field errors are output as an unordered list—the list has the HTML class "error-list" and the items have the class "error"
 * Automatically-adjusting indentation levels are applied to the HTML output using the custom Twig functions `form_indent()`, `form_current_indent_level()`, `form_increment_indent_level()`, `form_decrement_indent_level()` and `form_set_indent_level()` (note: these last three should only be used w/the Twig `{% do %}` tag since they don't return anything)
   * The default starting indentation level is 2 when not using `form_set_indent_level()` (calling it without an argument will reset the level to this default)
-  * Tabs are used for this indentation by default, but you can change it to use spaces instead with the `indent_spaces` config key (e.g. set it to `4` to use four spaces for each level of indentation) (note: this config key also controls the output of the `indent_lines` filter from my generic Twig extension)
+  * Tabs are used for this indentation by default, but you can change it to use spaces instead with the `wh_form.indent_spaces` config key (e.g. set it to `4` to use four spaces for each level of indentation) (note: this config key also controls the output of the `indent_lines` filter from my generic Twig extension)
 
 Lastly (although this list of the bundle's features is hardly exhaustive), this bundle includes the following static/client-side files, which should be available under your project's `public/bundles/whform/` directory:
 

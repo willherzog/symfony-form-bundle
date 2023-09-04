@@ -475,7 +475,7 @@
 {{ indent }}<fieldset{% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}>
 	{%- do form_increment_indent_level() %}
 		{{- form_label(form) }}
-		{%- if help_text_position == 'before' %}
+		{%~ if help_text_position == 'before' %}
 			{{- form_help(form) }}
 		{%- endif %}
 		{{~ block('form_rows') }}

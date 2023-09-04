@@ -393,7 +393,7 @@
 				{%~ endif %}
 			{%~ else %}
 				{%~ if help_html ~%}
-					{{~ help|trans(help_translation_parameters, translation_domain)|markdown_line_only(enable_line_breaks)|indent_lines(form_current_indent_level()) }}
+					{{~ help|trans(help_translation_parameters, translation_domain)|markdown_line_only(enable_line_breaks)|trim_trailing_newlines|indent_lines(form_current_indent_level()) }}
 				{%~ else ~%}
 					{{~ help|trans(help_translation_parameters, translation_domain)|indent_lines(form_current_indent_level()) }}
 				{%~ endif %}

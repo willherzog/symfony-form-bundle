@@ -309,13 +309,13 @@
 
 {% block toggle_switch_with_settings_widget %}
 	{{~ block('toggle_switch_widget') }}
-{{ form_indent() }}<button type="button" aria-haspopup="dialog" {% with { attr: button_attr } %}{{ block('attributes') }}{% endwith %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
+{{ form_indent() }}<button type="button" aria-haspopup="dialog"{% with { attr: button_attr } %}{{ block('attributes') }}{% endwith %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
 {% endblock toggle_switch_with_settings_widget %}
 
 {% block info_widget %}
 	{%~ set attr = form_attr_html_classes(attr, ['info-widget']) %}
 	{#~ This field type has no widget, per se, so simply using "attributes" here #}
-{{ form_indent() }}<{{ value_label_element|default('span') }} id="{{ id }}" {{ block('attributes') }}{% if value is defined and value is not empty %} data-value="{{ value|e('html_attr') }}"{% endif %}>{% if value_label_has_html %}{{ value_label|raw }}{% else %}{{ value_label }}{% endif %}</{{ value_label_element|default('span') }}>
+{{ form_indent() }}<{{ value_label_element|default('span') }} id="{{ id }}"{{ block('attributes') }}{% if value is defined and value is not empty %} data-value="{{ value|e('html_attr') }}"{% endif %}>{% if value_label_has_html %}{{ value_label|raw }}{% else %}{{ value_label }}{% endif %}</{{ value_label_element|default('span') }}>
 {% endblock info_widget %}
 
 {% block action_widget %}
@@ -326,14 +326,14 @@
 {% block modal_editor_widget %}
 	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
 	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
-{{ form_indent() }}<button type="button" id="{{ id }}" {{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
+{{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
 {% endblock modal_editor_widget %}
 
 {% block modal_select_widget %}
 	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
 	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
-{{ form_indent() }}<button type="button" id="{{ id }}" {{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ translate_button_text|default(false) ? button_text|trans(attr_translation_parameters, translation_domain) : button_text }}</button>
+{{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ translate_button_text|default(false) ? button_text|trans(attr_translation_parameters, translation_domain) : button_text }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
 {% endblock modal_select_widget %}
 

@@ -363,8 +363,8 @@
 {{ form_indent() }}<legend{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
 			{{- block('form_label_content') -}}
 		</legend>
-	{%~ endif -%}
-{%- endblock fieldset_label %}
+	{%- endif %}
+{% endblock fieldset_label %}
 
 {# Help #}
 

@@ -202,22 +202,22 @@
 {% endblock integer_widget %}
 
 {% block money_widget %}
-	{%- if symbol is not empty %}
+	{%~ if symbol is not empty %}
 {{ form_indent() }}<div class="faux-number-widget with-type-symbol">
-		{%- do form_increment_indent_level() %}
-		{%- if symbol_placement == 'before' %}
+		{%~ do form_increment_indent_level() %}
+		{%~ if symbol_placement == 'before' %}
 {{ form_indent() }}<span class="input-type-symbol before">{{ symbol }}</span>
-		{%- endif %}
+		{%~ endif %}
 		{{~ block('form_widget_simple') }}
-		{%- if symbol_placement == 'after' %}
+		{%~ if symbol_placement == 'after' %}
 {{ form_indent() }}<span class="input-type-symbol after">{{ symbol }}</span>
-		{%- endif %}
-		{%- do form_decrement_indent_level() %}
+		{%~ endif %}
+		{%~ do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
-	{%- else %}
+	{%~ else %}
 		{{~ block('form_widget_simple') }}
-	{%- endif %}
-{%- endblock money_widget %}
+	{%~ endif %}
+{% endblock money_widget %}
 
 {% block url_widget %}
 	{%~ set default_type = 'url' %}
@@ -230,17 +230,17 @@
 {% endblock search_widget %}
 
 {% block percent_widget %}
-	{%- if symbol is not empty %}
+	{%~ if symbol is not empty %}
 {{ form_indent() }}<div class="faux-number-widget with-type-symbol">
-		{%- do form_increment_indent_level() %}
+		{%~ do form_increment_indent_level() %}
 			{{~ block('form_widget_simple') }}
 {{ form_indent() }}<span class="input-type-symbol after">{{ symbol }}</span>
-		{%- do form_decrement_indent_level() %}
+		{%~ do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
-	{%- else %}
+	{%~ else %}
 		{{~ block('form_widget_simple') }}
-	{%- endif %}
-{%- endblock percent_widget %}
+	{%~ endif %}
+{% endblock percent_widget %}
 
 {% block password_widget %}
 	{%~ set default_type = 'password' %}

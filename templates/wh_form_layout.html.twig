@@ -538,9 +538,9 @@
 {{ indent }}<div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
 	{%~ do form_increment_indent_level() %}
 		{{- form_widget(form) }}
-	{%- do form_decrement_indent_level() %}
+	{%~ do form_decrement_indent_level() %}
 {{ indent }}</div>
-{%- endblock button_row %}
+{% endblock button_row %}
 
 {% block hidden_row %}
 	{{- form_widget(form) -}}

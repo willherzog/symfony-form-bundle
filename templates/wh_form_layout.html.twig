@@ -17,7 +17,7 @@
 		{#- Attribute "required" is not supported -#}
 		{%- set required = false -%}
 	{%~ endif %}
-{{ form_indent() }}<input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}"{% endif %}>
+{{ form_indent() }}<input type="{{ type }}" {{ block('widget_attributes') }}{% if value is not empty %} value="{{ value }}"{% endif %}>
 {%- endblock form_widget_simple %}
 
 {% block form_widget_compound %}

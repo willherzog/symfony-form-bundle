@@ -438,7 +438,7 @@
 		{%- do form_decrement_indent_level() %}
 {{ indent }}</div>
 	{%- else ~%}
-		{{~ form_row(form)|form_trim_trailing_newlines }}
+		{{~ form_row(form)|trim_trailing_newlines }}
 	{%- endif %}
 {% endblock collection_entry_row %}
 
@@ -547,7 +547,7 @@
 {% endblock hidden_row %}
 
 {% block csrf_token_row %}
-	{{- form_widget(form)|form_trim_trailing_newlines -}}
+	{{- form_widget(form)|trim_trailing_newlines -}}
 {% endblock csrf_token_row %}
 
 {% block divider_row %}

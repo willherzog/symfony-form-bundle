@@ -497,14 +497,14 @@
 	{%~ set indent = form_indent(form) %}
 	{%~ set row_attr = form_attr_html_classes(row_attr, ['form-field'], addl_classes|default([])) %}
 {{ indent }}<div{% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}>
-	{%- do form_increment_indent_level() %}
+	{%~ do form_increment_indent_level() %}
 		{{- form_label(form) }}
 		{{- form_widget(form, widget_vars) }}
 		{{- form_errors(form) }}
 		{{- form_help(form) }}
 	{%- do form_decrement_indent_level() %}
 {{ indent }}</div>
-{%- endblock toggle_switch_row %}
+{% endblock toggle_switch_row %}
 
 {% block checkbox_row %}
 	{%- set widget_vars = {} -%}

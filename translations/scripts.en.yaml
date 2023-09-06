@@ -3,3 +3,5 @@ wh_form:
         collapse: Collapse
         expand: Expand
         remove: Remove
+    term:
+        disabled: Disabled

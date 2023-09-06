@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use WHPHP\Util\StringUtil;
 
 /**
- * Extension for the native Symfony FormType and ButtonType.
+ * Extension for the native Symfony FormType and ButtonType to override certain behaviors.
  *
  * @author Will Herzog <willherzog@gmail.com>
  */

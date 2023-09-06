@@ -59,7 +59,7 @@ function activateToggleSwitch(container) {
 }
 
 /**
- * Add an easily-styled element as a sibling of a checkbox widget and keep the state of both elements in sync.
+ * Add an easily-styled element (with the class "checkbox-widget") as a sibling of a checkbox widget and keep the state of both elements in sync.
  * The real checkbox widget can be hidden via CSS by selecting elements with the "hidden-widget" class.
  *
  * @author Will Herzog <willherzog@gmail.com>
@@ -117,7 +117,7 @@ function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
 }
 
 /**
- * Add an easily-styled element as a sibling of a radio widget and keep the state of both elements in sync.
+ * Add an easily-styled element (with the class "radio-widget") as a sibling of a radio widget and keep the state of both elements in sync.
  * The real radio widget can be hidden via CSS by selecting elements with the "hidden-widget" class.
  *
  * @author Will Herzog <willherzog@gmail.com>

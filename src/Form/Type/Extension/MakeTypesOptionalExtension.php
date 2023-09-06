@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
-class FormTypesExtension extends AbstractTypeExtension
+class MakeTypesOptionalExtension extends AbstractTypeExtension
 {
 	public static function getExtendedTypes(): iterable
 	{

@@ -17,7 +17,7 @@ use WHSymfony\WHFormBundle\Form\Type\Extension\CheckboxTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\ChoiceTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\CollectionTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\EnumTypeExtension;
-use WHSymfony\WHFormBundle\Form\Type\Extension\FormTypesExtension;
+use WHSymfony\WHFormBundle\Form\Type\Extension\MakeTypesOptionalExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\MoneyTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\NumberTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\InfoType;
@@ -79,7 +79,7 @@ class WHFormBundle extends AbstractBundle
 
 		if( $config['form']['default_optional'] ) {
 			$container->services()
-				->set('whform.type_extension.form', FormTypesExtension::class)
+				->set('whform.type_extension.form', MakeTypesOptionalExtension::class)
 					->tag('form.type_extension', ['priority' => 66])
 			;
 		}

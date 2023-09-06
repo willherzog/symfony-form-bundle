@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use WHPHP\Util\StringUtil;
 
 /**
- * Extension for the native Symfony form types to override certain behaviors.
+ * Extension for the native Symfony FormType and ButtonType.
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
@@ -53,7 +53,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 			->define('immutable')
 			->allowedTypes('bool')
 			->default(false)
-			->info('Field type does not allow its value to be changed: skip adding required/disabled classes. Also adds the row class "immutable" and the boolean "readonly" attribute to the widget.')
+			->info('Field type does not allow its value to be changed: skip adding required/disabled classes. Also adds the row class "immutable" and the boolean "readonly" attribute to text-only widgets.')
 		;
 
 		$resolver

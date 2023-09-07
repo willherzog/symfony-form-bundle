@@ -10,14 +10,12 @@
 
 /**
  * jQuery needs to be available, either as the global variable "$" or the global variable "jQuery".
- * When only one of these is available, a new local variable is created with the same name as the other one.
+ * If only the latter exists, a new local variable is created with the same name as the former.
  */
-if( typeof $ === 'undefined' && typeof jQuery === 'function' ) {
-	var $ = jQuery;
-} else if( typeof jQuery === 'undefined' && typeof $ === 'function' ) {
-	var jQuery = $;
-} else if( typeof $ === 'undefined' && typeof jQuery === 'undefined' ) {
+if( typeof $ !== 'function' && typeof jQuery !== 'function' ) {
 	throw new ReferenceError('The jQuery framework does not appear to be available.');
+} else if( typeof $ === 'undefined' && typeof jQuery === 'function' ) {
+	var $ = jQuery;
 }
 
 const haveTranslator = typeof Translator === 'object' && typeof Translator.trans === 'function';
@@ -34,7 +32,7 @@ const defaultRemoveButtonTooltip = haveTranslator ? Translator.trans('wh_form.ac
  * @param container jQuery instance containing the expected HTML output for a "toggle switch" widget
  */
 function activateToggleSwitch(container) {
-	if( typeof container !== 'object' || !(container instanceof jQuery) ) {
+	if( typeof container !== 'object' || !(container instanceof $) ) {
 		throw new TypeError('The "container" argument must be a jQuery object.');
 	}
 
@@ -70,7 +68,7 @@ function activateToggleSwitch(container) {
  * @param addTooltipIfDisabled Whether to add the title attribute "Disabled" if the widget is disabled
  */
 function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
-	if( typeof realWidget !== 'object' || !(realWidget instanceof jQuery) ) {
+	if( typeof realWidget !== 'object' || !(realWidget instanceof $) ) {
 		throw new TypeError('The "realWidget" argument must be a jQuery object.');
 	}
 
@@ -128,7 +126,7 @@ function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
  * @param addTooltipIfDisabled Whether to add the title attribute "Disabled" if the widget is disabled
  */
 function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
-	if( typeof realWidget !== 'object' || !(realWidget instanceof jQuery) ) {
+	if( typeof realWidget !== 'object' || !(realWidget instanceof $) ) {
 		throw new TypeError('The "realWidget" argument must be a jQuery object.');
 	}
 
@@ -189,7 +187,7 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 function enableCollapsibleFieldsets(container = null) {
 	if( container === null ) {
 		container = $('form');
-	} else if( typeof container !== 'object' || !(container instanceof jQuery) ) {
+	} else if( typeof container !== 'object' || !(container instanceof $) ) {
 		throw new TypeError('The "container" argument must be a jQuery object or NULL.');
 	}
 
@@ -249,7 +247,7 @@ function createRemoveButtonElement(tooltip) {
  * @param callbackData Optional data to be used as the sole parameter for the callback function (if not set, the value of the "subform" parameter is used)
  */
 function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackData) {
-	if( typeof subForm !== 'object' || !(subForm instanceof jQuery) ) {
+	if( typeof subForm !== 'object' || !(subForm instanceof $) ) {
 		throw new TypeError('The "subForm" argument must be a jQuery object.');
 	}
 

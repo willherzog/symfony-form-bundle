@@ -8,3 +8,8 @@
 fieldset.collapsible > :not(legend, .expander) {
 	display: none;
 }
+
+/* Use "help" cursor for labels with tooltip help */
+label.tooltip-help {
+	cursor: help;
+}

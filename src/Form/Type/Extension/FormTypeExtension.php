@@ -32,13 +32,13 @@ class FormTypeExtension extends AbstractTypeExtension
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
 		if( $options['label_tooltip_help'] ) {
-			$view->vars['attr']['title'] = $options['label_tooltip_help'];
+			$view->vars['label_attr']['title'] = $options['label_tooltip_help'];
 			$htmlClass = 'tooltip-help';
 
-			if( !isset($view->vars['attr']['class']) ) {
-				$view->vars['attr']['class'] = $htmlClass;
-			} elseif( $view->vars['attr']['class'] !== $htmlClass && is_string($view->vars['attr']['class']) && !str_contains($view->vars['attr']['class'], $htmlClass) ) {
-				$view->vars['attr']['class'] .= ' '. $htmlClass;
+			if( !isset($view->vars['label_attr']['class']) ) {
+				$view->vars['label_attr']['class'] = $htmlClass;
+			} elseif( $view->vars['label_attr']['class'] !== $htmlClass && is_string($view->vars['label_attr']['class']) && !str_contains($view->vars['label_attr']['class'], $htmlClass) ) {
+				$view->vars['label_attr']['class'] .= ' '. $htmlClass;
 			}
 		}
 	}

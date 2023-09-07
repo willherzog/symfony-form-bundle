@@ -16,6 +16,8 @@ if( typeof $ === 'undefined' && typeof jQuery === 'function' ) {
 	var $ = jQuery;
 } else if( typeof jQuery === 'undefined' && typeof $ === 'function' ) {
 	var jQuery = $;
+} else if( typeof $ === 'undefined' && typeof jQuery === 'undefined' ) {
+	throw new ReferenceError('The jQuery framework does not appear to be available.');
 }
 
 const haveTranslator = typeof Translator === 'object' && typeof Translator.trans === 'function';

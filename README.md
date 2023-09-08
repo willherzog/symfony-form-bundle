@@ -38,7 +38,7 @@ There are also several changes directly in the form layout template (based on th
 
 Lastly (although this list of the bundle's features is non-exhaustive), this bundle includes the following static/client-side files, which should be available under your project's `public/bundles/whform/` directory:
 
-* `module/functions.mjs` – Exports the `activateToggleSwitch()`, `makeStylableCheckboxWidget()`, `makeStylableRadioWidget()`, `enableCollapsibleFieldsets()`, `setupFauxNumberWrapperWidgets()`, `moveCursorAfterLastCharacter()`, `changeSelectOptionsEnablement()`, `createRemoveButtonElement()` and `setupSubFormRemoveAction()` functions (the latter two are intended for use with entries of `CollectionType` field groups)
+* `module/functions.mjs` – Exports the `setupFormFields()`, `activateToggleSwitch()`, `makeStylableCheckboxWidget()`, `makeStylableRadioWidget()`, `enableCollapsibleFieldsets()`, `setupFauxNumberWrapperWidgets()`, `moveCursorAfterLastCharacter()`, `changeSelectOptionsEnablement()`, `createRemoveButtonElement()` and `setupSubFormRemoveAction()` functions (the latter two are intended for use with entries of `CollectionType` field groups)
 * `style/form.css` – Functional-only style rules for this bundle's features
 
 \* These features are configurable.

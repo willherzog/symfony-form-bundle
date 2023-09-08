@@ -234,7 +234,7 @@ function setupFauxNumberWrapperWidgets() {
 	});
 }
 
-const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="search"], input[type="month"], input[type="week"], textarea';
+const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="search"], input[type="password"], input[type="month"], input[type="week"], textarea';
 
 /**
  * Given a text-based input element with a non-empty value, move the cursor to after the last character.
@@ -258,6 +258,49 @@ function moveCursorAfterLastCharacter(textBasedInput) {
 		textBasedInput[0].setSelectionRange(widgetInputLength, widgetInputLength);
 	} catch(e) {
 		console.log(e);
+	}
+}
+
+/**
+ * Apply all preceding setup functions to a form (or all forms currently on the page).
+ *
+ * @author Will Herzog <willherzog@gmail.com>
+ *
+ * @param container Optional jQuery instance of a containing form element (defaults to all form elements)
+ * @param focusFirst Whether to switch focus to the first text-based input (in HTML markup order)
+ */
+function setupFormFields(container = null, focusFirst = false) {
+	if( container === null ) {
+		container = $('form');
+	} else if( typeof container !== 'object' || !(container instanceof $) ) {
+		throw new TypeError('The "container" argument must be a jQuery object or NULL.');
+	}
+
+	// toggle switches (checkbox visual mod)
+	container.find('.form-field.toggle-switch').each(function () {
+		activateToggleSwitch($(this));
+	});
+
+	// stylable checkbox widgets
+	container.find('input[type=checkbox]').each(function () {
+		makeStylableCheckboxWidget($(this));
+	});
+
+	// stylable radio widgets
+	container.find('input[type=radio]').each(function () {
+		makeStylableRadioWidget($(this));
+	});
+
+	enableCollapsibleFieldsets(container);
+
+	setupFauxNumberWrapperWidgets();
+
+	if( focusFirst ) {
+		const firstInput = container.find(textBasedInputsSelector).first();
+
+		firstInput.trigger('focus');
+
+		moveCursorAfterLastCharacter(firstInput);
 	}
 }
 
@@ -352,6 +395,7 @@ export {
 	setupFauxNumberWrapperWidgets,
 	textBasedInputsSelector,
 	moveCursorAfterLastCharacter,
+	setupFormFields,
 	changeSelectOptionsEnablement,
 	createRemoveButtonElement,
 	setupSubFormRemoveAction

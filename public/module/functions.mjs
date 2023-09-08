@@ -215,6 +215,33 @@ function enableCollapsibleFieldsets(container = null) {
 	}
 }
 
+const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="search"], input[type="month"], input[type="week"], textarea';
+
+/**
+ * Given a text-based input element with a non-empty value, move the cursor to after the last character.
+ *
+ * @author Will Herzog <willherzog@gmail.com>
+ *
+ * @param textBasedInput jQuery instance of a single HTML input (of a text-based type) or textarea element
+ */
+function moveCursorAfterLastCharacter(textBasedInput) {
+	if( typeof textBasedInput !== 'object' || !(textBasedInput instanceof $) ) {
+		throw new TypeError('The "textBasedInput" argument must be a jQuery object.');
+	}
+
+	if( textBasedInput.filter(textBasedInputsSelector).length === 0 || typeof textBasedInput.val === 'undefined' ) {
+		return;
+	}
+
+	const widgetInputLength = textBasedInput.val().length;
+
+	try {
+		textBasedInput[0].setSelectionRange(widgetInputLength, widgetInputLength);
+	} catch(e) {
+		console.log(e);
+	}
+}
+
 /**
  * Allow fieldsets with the class "collapsible" to be collapsed and expanded.
  *
@@ -303,6 +330,8 @@ export {
 	makeStylableCheckboxWidget,
 	makeStylableRadioWidget,
 	enableCollapsibleFieldsets,
+	textBasedInputsSelector,
+	moveCursorAfterLastCharacter,
 	changeSelectOptionsEnablement,
 	createRemoveButtonElement,
 	setupSubFormRemoveAction

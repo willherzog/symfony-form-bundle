@@ -77,7 +77,7 @@ function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
 		return;
 	}
 
-	const fakeWidget = $('<div class="checkbox-widget" tabindex="0"></div>');
+	const fakeWidget = $('<div class="stylable-widget checkbox-widget" tabindex="0"></div>');
 
 	realWidget.addClass('hidden-widget').attr('tabindex', -1).after(fakeWidget);
 
@@ -135,7 +135,7 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 		return;
 	}
 
-	const fakeWidget = $('<div class="radio-widget" tabindex="0"></div>');
+	const fakeWidget = $('<div class="stylable-widget radio-widget" tabindex="0"></div>');
 
 	realWidget.addClass('hidden-widget').attr('tabindex', -1).after(fakeWidget);
 

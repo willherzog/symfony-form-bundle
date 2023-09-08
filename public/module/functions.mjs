@@ -220,6 +220,36 @@ function enableCollapsibleFieldsets(container = null) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
+ * @param selectWidget jQuery instance of a single HTML select element
+ * @param valuesInUse An array of values for which the associated options should be disabled
+ */
+function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
+	if( typeof selectWidget !== 'object' || !(selectWidget instanceof $) ) {
+		throw new TypeError('The "selectWidget" argument must be a jQuery object.');
+	}
+
+	if( !Array.isArray(valuesInUse) ) {
+		throw new TypeError('The "valuesInUse" argument must be an array.');
+	}
+
+	selectWidget.find('option').each(function () {
+		const option = $(this), value = option.attr('value');
+
+		if( value && !option.is(':selected') ) {
+			if( valuesInUse.includes(value) ) {
+				option.prop('disabled', true);
+			} else {
+				option.prop('disabled', false);
+			}
+		}
+	});
+}
+
+/**
+ * Allow fieldsets with the class "collapsible" to be collapsed and expanded.
+ *
+ * @author Will Herzog <willherzog@gmail.com>
+ *
  * @param tooltip Optional string value to use for the remove button's title attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
  */
 function createRemoveButtonElement(tooltip) {
@@ -273,6 +303,7 @@ export {
 	makeStylableCheckboxWidget,
 	makeStylableRadioWidget,
 	enableCollapsibleFieldsets,
+	changeSelectOptionsEnablement,
 	createRemoveButtonElement,
 	setupSubFormRemoveAction
 };

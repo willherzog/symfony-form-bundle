@@ -215,6 +215,25 @@ function enableCollapsibleFieldsets(container = null) {
 	}
 }
 
+/**
+ * Allow faux number widget wrapper elements to be styled the same as normal focused widgets (via the class "widget-has-focus") when the inner widget receives focus.
+ *
+ * @author Will Herzog <willherzog@gmail.com>
+ */
+function setupFauxNumberWrapperWidgets() {
+	$('.faux-number-widget.with-type-symbol').each(function () {
+		const fauxWrapperWidget = $(this);
+
+		fauxWrapperWidget.on('focus', ':input', () => {
+			fauxWrapperWidget.addClass('widget-has-focus');
+		});
+
+		fauxWrapperWidget.on('blur', ':input', () => {
+			fauxWrapperWidget.removeClass('widget-has-focus');
+		});
+	});
+}
+
 const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="search"], input[type="month"], input[type="week"], textarea';
 
 /**
@@ -330,6 +349,7 @@ export {
 	makeStylableCheckboxWidget,
 	makeStylableRadioWidget,
 	enableCollapsibleFieldsets,
+	setupFauxNumberWrapperWidgets,
 	textBasedInputsSelector,
 	moveCursorAfterLastCharacter,
 	changeSelectOptionsEnablement,

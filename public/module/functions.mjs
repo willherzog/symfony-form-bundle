@@ -267,7 +267,7 @@ function moveCursorAfterLastCharacter(textBasedInput) {
  * @author Will Herzog <willherzog@gmail.com>
  *
  * @param container Optional jQuery instance of a containing form element (defaults to all form elements)
- * @param focusFirst Whether to switch focus to the first text-based input (in HTML markup order)
+ * @param focusFirst Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the "autofocus" attribute, this will only apply moveCursorAfterLastCharacter() to it
  */
 function setupFormFields(container = null, focusFirst = false) {
 	if( container === null ) {
@@ -296,9 +296,13 @@ function setupFormFields(container = null, focusFirst = false) {
 	setupFauxNumberWrapperWidgets();
 
 	if( focusFirst ) {
-		const firstInput = container.find(textBasedInputsSelector).first();
+		let firstInput = container.find(textBasedInputsSelector).filter('[autofocus]').first();
 
-		firstInput.trigger('focus');
+		if( firstInput.length === 0 ) {
+			firstInput = container.find(textBasedInputsSelector).first();
+
+			firstInput.trigger('focus');
+		}
 
 		moveCursorAfterLastCharacter(firstInput);
 	}

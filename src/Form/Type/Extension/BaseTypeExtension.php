@@ -64,10 +64,10 @@ class BaseTypeExtension extends AbstractTypeExtension
 		;
 
 		$resolver
-			->define('adjacent_field_rel')
+			->define('inter_field_rel')
 			->allowedValues(null, 'related_to_previous', 'negated_by_previous')
 			->default(null)
-			->info('Type of relationship between this field and one of its adjacent fields (if any). For now, this merely adds a standardized row class (same as non-null value but with dashes instead of underscores).')
+			->info('Type of relationship (if any) between this field and a nearby field (i.e. the nearest one for which this option has the default value). For now, this merely adds a standardized row class (same as non-null value but with dashes instead of underscores).')
 		;
 	}
 
@@ -145,8 +145,8 @@ class BaseTypeExtension extends AbstractTypeExtension
 			}
 		}
 
-		if( $options['adjacent_field_rel'] !== null ) {
-			$rowClasses[] = StringUtil::convertUnderscoresToDashes($options['adjacent_field_rel']);
+		if( $options['inter_field_rel'] !== null ) {
+			$rowClasses[] = StringUtil::convertUnderscoresToDashes($options['inter_field_rel']);
 		}
 
 		$rowClassesStr = implode(' ', $rowClasses);

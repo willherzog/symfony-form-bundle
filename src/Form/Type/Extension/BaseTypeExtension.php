@@ -62,6 +62,13 @@ class BaseTypeExtension extends AbstractTypeExtension
 			->default(null)
 			->info('How many indentation levels to use (instead of the configured default) if this is a root form.')
 		;
+
+		$resolver
+			->define('adjacent_field_rel')
+			->allowedValues(null, 'related_to_previous', 'negated_by_previous')
+			->default(null)
+			->info('Type of relationship between this field and one of its adjacent fields (if any). For now, this merely adds a standardized row class (same as non-null value but with dashes instead of underscores).')
+		;
 	}
 
 	public function buildView(FormView $view, FormInterface $form, array $options): void
@@ -136,6 +143,10 @@ class BaseTypeExtension extends AbstractTypeExtension
 			} elseif( $view->vars['disabled'] ) {
 				$rowClasses[] = 'disabled';
 			}
+		}
+
+		if( $options['adjacent_field_rel'] !== null ) {
+			$rowClasses[] = StringUtil::convertUnderscoresToDashes($options['adjacent_field_rel']);
 		}
 
 		$rowClassesStr = implode(' ', $rowClasses);

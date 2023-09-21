@@ -625,5 +625,5 @@
 {% endblock form_rows %}
 
 {%- block form_widget_hidden -%}
-<input type="hidden" class="form-widget-actual" name="{{ full_name }}"{% if required %} required{% endif %}{% if value is not empty %} value="{{ value }}"{% endif %}>
+<input type="hidden" class="form-widget-actual" name="{{ full_name }}"{% if value is not empty %} value="{{ value }}"{% endif %}>
 {%- endblock form_widget_hidden -%}

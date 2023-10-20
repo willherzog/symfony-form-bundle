@@ -296,10 +296,11 @@ function setupFormFields(container = null, focusFirst = false) {
 	setupFauxNumberWrapperWidgets();
 
 	if( focusFirst ) {
-		let firstInput = container.find(textBasedInputsSelector).filter('[autofocus]').first();
+		const allTextBasedInputs = container.find(textBasedInputsSelector);
+		let firstInput = allTextBasedInputs.filter('[autofocus]').first();
 
 		if( firstInput.length === 0 ) {
-			firstInput = container.find(textBasedInputsSelector).first();
+			firstInput = allTextBasedInputs.not('[readonly]').filter(':enabled').first();
 
 			firstInput.trigger('focus');
 		}

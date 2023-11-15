@@ -32,6 +32,8 @@ use WHSymfony\WHFormBundle\Twig\WHFormExtension;
  */
 class WHFormBundle extends AbstractBundle
 {
+	protected string $extensionAlias = 'wh_form';
+
 	public function configure(DefinitionConfigurator $definition): void
 	{
 		$definition->rootNode()

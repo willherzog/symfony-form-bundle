@@ -25,11 +25,11 @@
 	],
     "require": {
 		"php": "^8.2",
-		"symfony/form": "^6.2",
-		"symfony/framework-bundle": "^6.2",
-		"symfony/translation": "^6.2",
-		"symfony/twig-bundle": "^6.2",
-		"symfony/validator": "^6.2",
+		"symfony/form": "^6.2|^7.0",
+		"symfony/framework-bundle": "^6.2|^7.0",
+		"symfony/translation": "^6.2|^7.0",
+		"symfony/twig-bundle": "^6.2|^7.0",
+		"symfony/validator": "^6.2|^7.0",
 		"willherzog/php-util": "dev-main",
 		"willherzog/twig-generic": "dev-main",
 		"willherzog/twig-parsedown": "dev-main"

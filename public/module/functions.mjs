@@ -29,7 +29,7 @@ const defaultRemoveButtonTooltip = haveTranslator ? Translator.trans('wh_form.ac
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param container jQuery instance containing the expected HTML output for a "toggle switch" widget
+ * @param {JQuery} container jQuery instance containing the expected HTML output for a "toggle switch" widget
  */
 function activateToggleSwitch(container) {
 	if( typeof container !== 'object' || !(container instanceof $) ) {
@@ -64,8 +64,8 @@ function activateToggleSwitch(container) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param realWidget jQuery instance of a single HTML input tag with type="checkbox"
- * @param addTooltipIfDisabled Whether to add the title attribute "Disabled" if the widget is disabled
+ * @param {JQuery} realWidget jQuery instance of a single HTML input tag with type="checkbox"
+ * @param {boolean} [addTooltipIfDisabled] Whether to add the title attribute "Disabled" if the widget is disabled
  */
 function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
 	if( typeof realWidget !== 'object' || !(realWidget instanceof $) ) {
@@ -122,8 +122,8 @@ function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param realWidget jQuery instance of a single HTML input tag with type="radio"
- * @param addTooltipIfDisabled Whether to add the title attribute "Disabled" if the widget is disabled
+ * @param {JQuery} realWidget jQuery instance of a single HTML input tag with type="radio"
+ * @param {boolean} [addTooltipIfDisabled] Whether to add the title attribute "Disabled" if the widget is disabled
  */
 function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 	if( typeof realWidget !== 'object' || !(realWidget instanceof $) ) {
@@ -182,7 +182,7 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param container Optional jQuery instance containing any fieldsets to be made collapsible (defaults to all form elements)
+ * @param {JQuery} [container] Optional jQuery instance containing any fieldsets to be made collapsible (defaults to all form elements)
  */
 function enableCollapsibleFieldsets(container = null) {
 	if( container === null ) {
@@ -241,7 +241,7 @@ const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param textBasedInput jQuery instance of a single HTML input (of a text-based type) or textarea element
+ * @param {JQuery} textBasedInput jQuery instance of a single HTML input (of a text-based type) or textarea element
  */
 function moveCursorAfterLastCharacter(textBasedInput) {
 	if( typeof textBasedInput !== 'object' || !(textBasedInput instanceof $) ) {
@@ -266,8 +266,8 @@ function moveCursorAfterLastCharacter(textBasedInput) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param container Optional jQuery instance of a containing form element (defaults to all form elements)
- * @param focusFirst Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the "autofocus" attribute, this will only apply moveCursorAfterLastCharacter() to it
+ * @param {JQuery} [container] Optional jQuery instance of a containing form element (defaults to all form elements)
+ * @param {boolean} [focusFirst] Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the "autofocus" attribute, this will only apply moveCursorAfterLastCharacter() to it
  */
 function setupFormFields(container = null, focusFirst = false) {
 	if( container === null ) {
@@ -314,8 +314,8 @@ function setupFormFields(container = null, focusFirst = false) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param selectWidget jQuery instance of a single HTML select element
- * @param valuesInUse An array of values for which the associated options should be disabled
+ * @param {JQuery} selectWidget jQuery instance of a single HTML select element
+ * @param {Array} valuesInUse An array of values for which the associated options should be disabled
  */
 function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
 	if( typeof selectWidget !== 'object' || !(selectWidget instanceof $) ) {
@@ -344,7 +344,7 @@ function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param tooltip Optional string value to use for the remove button's title attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
+ * @param {string} [tooltip] Optional string value to use for the remove button's title attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
  */
 function createRemoveButtonElement(tooltip) {
 	if( tooltip === false ) {
@@ -365,10 +365,10 @@ function createRemoveButtonElement(tooltip) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param subForm jQuery instance of a sub-form to which the remove action should be added
- * @param removalTooltip Optional - see "tooltip" parameter of createRemoveButtonElement()
- * @param callbackFn Optional callback function to be called when the remove button is clicked
- * @param callbackData Optional data to be used as the sole parameter for the callback function (if not set, the value of the "subform" parameter is used)
+ * @param {JQuery} subForm jQuery instance of a sub-form to which the remove action should be added
+ * @param {string} [removalTooltip] [Optional] - see "tooltip" parameter of createRemoveButtonElement()
+ * @param {Function} [callbackFn] Optional callback function to be called when the remove button is clicked
+ * @param {*} [callbackData] Optional data to be used as the sole parameter for the callback function (if not set, the value of the "subform" parameter is used)
  */
 function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackData) {
 	if( typeof subForm !== 'object' || !(subForm instanceof $) ) {

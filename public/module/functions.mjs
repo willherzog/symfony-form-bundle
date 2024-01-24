@@ -241,7 +241,7 @@ const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param {JQuery} textBasedInput jQuery instance of a single HTML input (of a text-based type) or textarea element
+ * @param {JQuery<HTMLInputElement>} textBasedInput jQuery instance of a single HTML input (of a text-based type) or textarea element
  */
 function moveCursorAfterLastCharacter(textBasedInput) {
 	if( typeof textBasedInput !== 'object' || !(textBasedInput instanceof $) ) {
@@ -305,6 +305,7 @@ function setupFormFields(container = null, focusFirst = false) {
 			firstInput.trigger('focus');
 		}
 
+		// @ts-ignore - Will always be required type JQuery<HTMLInputElement>, but no way to "tell" TypeScript this :-/
 		moveCursorAfterLastCharacter(firstInput);
 	}
 }
@@ -344,7 +345,7 @@ function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param {string} [tooltip] Optional string value to use for the remove button's title attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
+ * @param {string | boolean} [tooltip] Optional string value to use for the remove button's title attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
  */
 function createRemoveButtonElement(tooltip) {
 	if( tooltip === false ) {
@@ -366,7 +367,7 @@ function createRemoveButtonElement(tooltip) {
  * @author Will Herzog <willherzog@gmail.com>
  *
  * @param {JQuery} subForm jQuery instance of a sub-form to which the remove action should be added
- * @param {string} [removalTooltip] [Optional] - see "tooltip" parameter of createRemoveButtonElement()
+ * @param {string | boolean} [removalTooltip] [Optional] - see "tooltip" parameter of createRemoveButtonElement()
  * @param {Function} [callbackFn] Optional callback function to be called when the remove button is clicked
  * @param {*} [callbackData] Optional data to be used as the sole parameter for the callback function (if not set, the value of the "subform" parameter is used)
  */

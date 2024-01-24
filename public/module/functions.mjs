@@ -353,6 +353,8 @@ function createRemoveButtonElement(tooltip) {
 	} else if( tooltip !== '' ) {
 		if( typeof tooltip !== 'string' ) {
 			tooltip = defaultRemoveButtonTooltip;
+		} else if( haveTranslator ) {
+			tooltip = Translator.trans(tooltip);
 		}
 
 		tooltip = ` title="${tooltip}"`;

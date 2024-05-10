@@ -7,7 +7,7 @@ This bundle's focus is primarily on form presentation (as opposed to form proces
 * `BaseTypeExtension` – Adds the `translate_attributes`, `help_markdown_lines`, `use_parent_row_type` and `immutable` options to all field types; it also automatically adds HTML classes based on the field type, field name and whether the field is required or disabled to the field row (these HTML classes, as well as the field's `id` attribute, have underscores converted to dashes*)
 * `MakeTypesOptionalExtension` – Makes most core Symfony types default to not being required* (field groups—`CollectionType` in particular—are not included)
 * `ChoiceTypeExtension` – Adds the `expanded_wrapping_strategy` and `placeholder_translation_parameters` options to `ChoiceType` fields
-* `CollectionTypeExtension`  – Adds the `add_button_label`, `add_button_position`, `add_button_class` and `help_text_position` options to `CollectionType` field groups
+* `CollectionTypeExtension`  – Adds the `add_button_label`, `add_button_position`, `add_button_class`, `add_button_opens_dialog` and `help_text_position` options to `CollectionType` field groups
 * `EnumTypeExtension` – Leverages the included `LabelAwareEnum` and `LimitedChoicesEnum` interfaces to add automation by default to the `choice_label` and `choice_filter` options for EnumType fields
 * `CheckboxTypeExtension` – Adds the `label_after_widget` option to `CheckboxType` fields
 * `ButtonTypeExtension` – Adds the `help`, `help_attr`, `help_html` and `help_translation_parameters` options to `ButtonType` fields

@@ -15,7 +15,8 @@ class MakeTypesOptionalExtension extends AbstractTypeExtension
 {
 	public static function getExtendedTypes(): iterable
 	{
-		// The types have to be listed individually (as opposed to simply using Formtype) so that overriding *certain* defaults works as expected.
+		// The types have to be listed individually (as opposed to simply using Formtype)
+		// so that overriding the default works as expected
 		return [
 			Type\CheckboxType::class,
 			Type\ChoiceType::class,
@@ -36,7 +37,8 @@ class MakeTypesOptionalExtension extends AbstractTypeExtension
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		// Make form fields optional by default; note that this overrides child forms if set on a parent form.
+		// Make most form fields optional by default; note that this overrides child forms
+		// if set on a parent form, which is why this isn't applied to e.g. CollectionType
 		$resolver->setDefault('required', false);
 	}
 }

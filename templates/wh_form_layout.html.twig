@@ -44,7 +44,7 @@
 		{%- endfor %}
 		{{- form_rest(form) }}
 		{%- if add_button_position == 'inside' ~%}
-{{ form_indent() }}<button type="button" class="action add-item">{{ add_button_label|trans }}</button>
+{{ form_indent() }}{{ block('collection_add_button') }}
 		{%- endif -%}
 		{%- do form_decrement_indent_level() ~%}
 {{ form_indent() }}</div>
@@ -456,12 +456,12 @@
 			{{- form_help(form) }}
 		{%- endif %}
 		{%- if add_button_position == 'before' %}
-{{ indent }}{{ form_indent_prototype|raw }}<button type="button" class="action {{ add_button_class }}">{{ add_button_label|trans }}</button>
+{{ indent }}{{ form_indent_prototype|raw }}{{ block('collection_add_button') }}
 		{%~ endif %}
 			{{- form_widget(form, widget_vars) }}
 			{{- form_errors(form) }}
 		{%- if add_button_position == 'after' ~%}
-{{ indent }}{{ form_indent_prototype|raw }}<button type="button" class="action {{ add_button_class }}">{{ add_button_label|trans }}</button>
+{{ indent }}{{ form_indent_prototype|raw }}{{ block('collection_add_button') }}
 		{%- endif %}
 		{%- if help_text_position == 'after' %}
 			{{- form_help(form) }}
@@ -607,3 +607,11 @@
 {%- block form_widget_hidden -%}
 <input type="hidden" class="form-widget-actual" name="{{ full_name }}"{% if value is not empty %} value="{{ value }}"{% endif %}>
 {%- endblock form_widget_hidden -%}
+
+{%- block collection_add_button -%}
+	<button type="button" class="action {{ add_button_class }}"
+	{%- if add_button_opens_dialog -%}
+	aria-haspopup="dialog"
+	{%- endif -%}
+	>{{ add_button_label|trans }}</button>
+{%- endblock collection_add_button -%}

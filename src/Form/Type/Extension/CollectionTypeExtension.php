@@ -25,6 +25,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 			->setDefaults([
 				'add_button_class' => 'add-item',
 				'add_button_label' => 'wh_form.label.add_item',
+				'add_button_opens_dialog' => false,
 				'add_button_position' => null,
 				'help_text_position' => null
 			])
@@ -39,6 +40,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 	{
 		$view->vars['add_button_class'] = $options['add_button_class'];
 		$view->vars['add_button_label'] = $options['add_button_label'];
+		$view->vars['add_button_opens_dialog'] = $options['add_button_opens_dialog'];
 		$view->vars['add_button_position'] = $options['add_button_position'];
 
 		if( in_array($options['help_text_position'], ['before','after'], true) ) {

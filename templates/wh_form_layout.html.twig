@@ -96,14 +96,14 @@
 		{%- endif %}
 		{%~ if preferred_choices|length > 0 %}
 			{%~ set options = preferred_choices %}
-            {%~ set render_preferred_choices = true %}
+			{%~ set render_preferred_choices = true %}
 			{{~ block('choice_widget_options') }}
 			{%- if choices|length > 0 and separator is not none %}
 {{ form_indent() }}<option disabled>{{ separator }}</option>
 			{%- endif %}
 		{%~ endif %}
 		{%~ set options = choices %}
-        {%~ set render_preferred_choices = false %}
+		{%~ set render_preferred_choices = false %}
 		{{~ block('choice_widget_options') }}
 		{%- do form_decrement_indent_level() ~%}
 {{ form_indent() }}</select>
@@ -615,3 +615,19 @@
 	{%- endif -%}
 	>{{ add_button_label|trans }}</button>
 {%- endblock collection_add_button -%}
+
+{% block attributes -%}
+	{%- if translate_attributes -%}
+		{%- set translate_attributes = translation_domain is not same as(false) -%}
+	{%- endif -%}
+	{%- for attrname, attrvalue in attr -%}
+		{{- " " -}}
+		{%- if attrname in ['placeholder', 'title'] -%}
+			{{- attrname }}="{{ not translate_attributes or attrvalue is null ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+		{%- elseif attrvalue is same as(true) -%}
+			{{- attrname }}="{{ attrname }}"
+		{%- elseif attrvalue is not same as(false) -%}
+			{{- attrname }}="{{ attrvalue }}"
+		{%- endif -%}
+	{%- endfor -%}
+{%- endblock attributes -%}

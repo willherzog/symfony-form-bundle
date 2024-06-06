@@ -1,5 +1,6 @@
 wh_form:
     action:
+        clear: Clear
         collapse: Collapse
         expand: Expand
         remove: Remove

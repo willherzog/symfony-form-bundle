@@ -22,6 +22,7 @@ const haveTranslator = typeof Translator === 'object' && typeof Translator.trans
 const disabledWidgetTooltip = haveTranslator ? Translator.trans('wh_form.term.disabled') : 'Disabled'; // used by makeStylableCheckboxWidget() & makeStylableRadioWidget()
 const collapsibleFieldsetTooltipExpand = haveTranslator ? Translator.trans('wh_form.action.expand') : 'Expand'; // used by enableCollapsibleFieldsets()
 const collapsibleFieldsetTooltipCollapse = haveTranslator ? Translator.trans('wh_form.action.collapse') : 'Collapse'; // used by enableCollapsibleFieldsets()
+const defaultClearButtonTooltip = haveTranslator ? Translator.trans('wh_form.action.clear') : 'Clear'; // used by addClearDateButtons()
 const defaultRemoveButtonTooltip = haveTranslator ? Translator.trans('wh_form.action.remove') : 'Remove'; // used by createRemoveButtonElement()
 
 /**
@@ -234,6 +235,49 @@ function setupFauxNumberWrapperWidgets() {
 	});
 }
 
+/**
+ * Add a button to each HTML5 date input which, when clicked, resets the input's value. The button receives the HTML class "hidden" when the input has no value.
+ *
+ * @author Will Herzog <willherzog@gmail.com>
+ *
+ * @param {JQuery} [container] Optional jQuery instance containing the data inputs to which a "Clear" button should be added (defaults to all form elements)
+ */
+function addClearDateButtons(container = null) {
+	if( container === null ) {
+		container = $('form');
+	} else if( typeof container !== 'object' || !(container instanceof $) ) {
+		throw new TypeError('The "container" argument must be a jQuery object or NULL.');
+	}
+
+	const allDateWidgets = container.find('input[type="date"]');
+
+	allDateWidgets.each(function () {
+		const dateWidget = $(this);
+
+		if( dateWidget.siblings('.action.clear').length > 0 ) {
+			return; // prevent adding the button more than once
+		}
+
+		const clearButton = $(`<button type="button" class="action clear" title="${defaultClearButtonTooltip}"></button>`);
+
+		dateWidget.after(clearButton);
+
+		dateWidget.on('change', () => {
+			if( dateWidget.val() ) {
+				clearButton.removeClass('hidden');
+			} else {
+				clearButton.addClass('hidden');
+			}
+		});
+
+		dateWidget.trigger('change');
+
+		clearButton.on('click', () => {
+			dateWidget.val('');
+		});
+	});
+}
+
 const textBasedInputsSelector = 'input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="search"], input[type="password"], input[type="month"], input[type="week"], textarea';
 
 /**
@@ -269,7 +313,7 @@ function moveCursorAfterLastCharacter(textBasedInput) {
  * @param {JQuery} [container] Optional jQuery instance of a containing form element (defaults to all form elements)
  * @param {boolean} [focusFirst] Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the "autofocus" attribute, this will only apply moveCursorAfterLastCharacter() to it
  */
-function setupFormFields(container = null, focusFirst = false) {
+function setupFormFields(container = null, focusFirst = false, addClearDateButtons = false) {
 	if( container === null ) {
 		container = $('form');
 	} else if( typeof container !== 'object' || !(container instanceof $) ) {
@@ -294,6 +338,10 @@ function setupFormFields(container = null, focusFirst = false) {
 	enableCollapsibleFieldsets(container);
 
 	setupFauxNumberWrapperWidgets();
+
+	if( addClearDateButtons ) {
+		addClearDateButtons(container);
+	}
 
 	if( focusFirst ) {
 		const allTextBasedInputs = container.find(textBasedInputsSelector);
@@ -401,6 +449,7 @@ export {
 	makeStylableRadioWidget,
 	enableCollapsibleFieldsets,
 	setupFauxNumberWrapperWidgets,
+	addClearDateButtons,
 	textBasedInputsSelector,
 	moveCursorAfterLastCharacter,
 	setupFormFields,

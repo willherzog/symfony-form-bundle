@@ -242,7 +242,7 @@ function setupFauxNumberWrapperWidgets() {
  *
  * @param {JQuery} [container] Optional jQuery instance containing the data inputs to which a "Clear" button should be added (defaults to all form elements)
  */
-function addClearDateButtons(container = null) {
+function doAddClearDateButtons(container = null) {
 	if( container === null ) {
 		container = $('form');
 	} else if( typeof container !== 'object' || !(container instanceof $) ) {
@@ -312,6 +312,7 @@ function moveCursorAfterLastCharacter(textBasedInput) {
  *
  * @param {JQuery} [container] Optional jQuery instance of a containing form element (defaults to all form elements)
  * @param {boolean} [focusFirst] Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the "autofocus" attribute, this will only apply moveCursorAfterLastCharacter() to it
+ * @param {boolean} [addClearDateButtons] Whether to add a button to each HTML5 date input which, when clicked, resets the input's value
  */
 function setupFormFields(container = null, focusFirst = false, addClearDateButtons = false) {
 	if( container === null ) {
@@ -340,7 +341,7 @@ function setupFormFields(container = null, focusFirst = false, addClearDateButto
 	setupFauxNumberWrapperWidgets();
 
 	if( addClearDateButtons ) {
-		addClearDateButtons(container);
+		doAddClearDateButtons(container);
 	}
 
 	if( focusFirst ) {
@@ -449,7 +450,7 @@ export {
 	makeStylableRadioWidget,
 	enableCollapsibleFieldsets,
 	setupFauxNumberWrapperWidgets,
-	addClearDateButtons,
+	doAddClearDateButtons as addClearDateButtons,
 	textBasedInputsSelector,
 	moveCursorAfterLastCharacter,
 	setupFormFields,

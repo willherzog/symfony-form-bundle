@@ -274,6 +274,7 @@ function doAddClearDateButtons(container = null) {
 
 		clearButton.on('click', () => {
 			dateWidget.val('');
+			dateWidget.trigger('change');
 		});
 	});
 }

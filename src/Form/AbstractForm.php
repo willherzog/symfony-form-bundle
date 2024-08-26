@@ -16,7 +16,7 @@ abstract class AbstractForm extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getBlockPrefix (): string
+	public function getBlockPrefix(): string
 	{
 		return StringUtil::fqcnToBlockPrefix(static::class) ?: '';
 	}

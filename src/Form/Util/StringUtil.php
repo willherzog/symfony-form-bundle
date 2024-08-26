@@ -20,4 +20,12 @@ class StringUtil extends OrigStringUtil
 
 		return null;
 	}
+
+	/**
+	 * Applies same character replacements as in {@link Symfony\Component\Form\Extension\Core\Type\TimezoneType}.
+	 */
+	static public function humanizeTimezone(string $timezone): string
+	{
+		return str_replace(['/', '_'], [' / ', ' '], $timezone);
+	}
 }

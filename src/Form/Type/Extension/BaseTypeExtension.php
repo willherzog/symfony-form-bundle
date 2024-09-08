@@ -162,9 +162,9 @@ class BaseTypeExtension extends AbstractTypeExtension
 		// Use dash instead of underscore as the separator in the widget ID attribute.
 		if( $this->idAttributesUseDashes ) {
 			if( $view->parent && $view->parent->vars['full_name'] !== '' ) {
-				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $$nameConverted);
+				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $nameConverted);
 			} else {
-				$view->vars['id'] = $$nameConverted;
+				$view->vars['id'] = $nameConverted;
 			}
 		}
 	}

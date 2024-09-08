@@ -77,7 +77,6 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$view->vars['translate_attributes'] = $options['translate_attributes'];
 		$view->vars['help_markdown_lines'] = $options['help_markdown_lines'];
 
-		$rowClasses = [];
 		$formType = $form->getConfig()->getType();
 
 		if( $options['use_parent_row_type'] !== false
@@ -91,7 +90,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 			$blockPrefix = $formType->getBlockPrefix();
 		}
 
-		// Get the cardinal/HTML field type.
+		// Get the cardinal/HTML field type
 		$type = match($blockPrefix) {
 			'choice' => $options['expanded'] ? ($options['multiple'] ? 'checkbox' : 'radio') : 'select',
 			'integer', 'money', 'percent' => 'number',
@@ -99,7 +98,9 @@ class BaseTypeExtension extends AbstractTypeExtension
 			default => $blockPrefix
 		};
 
-		// Prepend automated classes to row class attribute.
+		// Prepend automated classes to row class attribute
+		$rowClasses = [];
+
 		if( $type !== '' && $type !== 'fieldset' ) {
 			$rowClasses[] = StringUtil::convertUnderscoresToDashes($type, true);
 		}
@@ -107,26 +108,17 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$name = $form->getName();
 
 		if( $name !== '' && !is_numeric($name) ) {
-			$nameConverted = StringUtil::convertUnderscoresToDashes(ltrim($name, '_'), true);
-			$addName = false;
+			$prototypeName = $form->getParent()?->getConfig()->getOption('prototype_name');
+			$addName = $prototypeName === null || $name !== $prototypeName;
 
-			if( $name !== $type ) {
-				if( $form->getParent()?->getConfig()->hasOption('prototype_name') ) {
-					$protoName = $form->getParent()->getConfig()->getOption('prototype_name');
+			if( $addName || $this->idAttributesUseDashes ) {
+				$nameConverted = StringUtil::convertUnderscoresToDashes($name, true);
+				$nameConverted = ltrim($nameConverted, '-');
 
-					if( $name !== $protoName ) {
-						$addName = true;
-					}
-				} else {
-					$addName = true;
+				if( $addName && !in_array($nameConverted, $rowClasses, true) ) {
+					$rowClasses[] = $nameConverted;
 				}
 			}
-
-			if( $addName ) {
-				$rowClasses[] = $nameConverted;
-			}
-		} else {
-			$nameConverted = $name;
 		}
 
 		if( $options['immutable'] ) {
@@ -159,12 +151,12 @@ class BaseTypeExtension extends AbstractTypeExtension
 
 		$view->vars['row_attr']['class'] = $rowClassesStr;
 
-		// Use dash instead of underscore as the separator in the widget ID attribute.
+		// Use dash instead of underscore as the separator in the widget ID attribute
 		if( $this->idAttributesUseDashes ) {
 			if( $view->parent && $view->parent->vars['full_name'] !== '' ) {
-				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $nameConverted);
+				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $nameConverted ?? $name);
 			} else {
-				$view->vars['id'] = $nameConverted;
+				$view->vars['id'] = $nameConverted ?? $name;
 			}
 		}
 	}

@@ -107,7 +107,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$name = $form->getName();
 
 		if( $name !== '' && !is_numeric($name) ) {
-			$name = StringUtil::convertUnderscoresToDashes($name, true);
+			$nameConverted = StringUtil::convertUnderscoresToDashes(ltrim($name, '_'), true);
 			$addName = false;
 
 			if( $name !== $type ) {
@@ -123,8 +123,10 @@ class BaseTypeExtension extends AbstractTypeExtension
 			}
 
 			if( $addName ) {
-				$rowClasses[] = $name;
+				$rowClasses[] = $nameConverted;
 			}
+		} else {
+			$nameConverted = $name;
 		}
 
 		if( $options['immutable'] ) {
@@ -160,9 +162,9 @@ class BaseTypeExtension extends AbstractTypeExtension
 		// Use dash instead of underscore as the separator in the widget ID attribute.
 		if( $this->idAttributesUseDashes ) {
 			if( $view->parent && $view->parent->vars['full_name'] !== '' ) {
-				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $name);
+				$view->vars['id'] = sprintf('%s-%s', $view->parent->vars['id'], $$nameConverted);
 			} else {
-				$view->vars['id'] = $name;
+				$view->vars['id'] = $$nameConverted;
 			}
 		}
 	}

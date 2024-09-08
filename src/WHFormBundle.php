@@ -55,7 +55,7 @@ class WHFormBundle extends AbstractBundle
 						->end()
 						->booleanNode('id_attributes_use_dashes')
 							->defaultTrue()
-							->info('Whether to convert underscores to dashes for form widget "id" attributes.')
+							->info('Whether to convert underscores to dashes for form widget "id" attributes (this will also prevent having a leading dash character).')
 						->end()
 					->end()
 				->end()

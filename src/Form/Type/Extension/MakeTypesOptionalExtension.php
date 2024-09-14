@@ -25,7 +25,9 @@ class MakeTypesOptionalExtension extends AbstractTypeExtension
 			Type\MoneyType::class,
 			Type\NumberType::class,
 			Type\PercentType::class,
-			Type\TextType::class
+			Type\TextType::class,
+			Type\UlidType::class,
+			Type\UuidType::class
 		];
 	}
 

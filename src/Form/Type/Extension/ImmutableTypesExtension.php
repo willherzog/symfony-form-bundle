@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Extension for native Symfony form types that always render as an HTML tag for which the 'immutable' attribute is supported.
+ * Extension for native Symfony form types that always render as an HTML tag for which the `immutable` attribute is supported.
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
@@ -20,7 +20,9 @@ class ImmutableTypesExtension extends AbstractTypeExtension
 			Type\MoneyType::class,
 			Type\NumberType::class,
 			Type\PercentType::class,
-			Type\TextType::class
+			Type\TextType::class,
+			Type\UlidType::class,
+			Type\UuidType::class
 		];
 	}
 

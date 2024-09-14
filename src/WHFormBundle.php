@@ -16,12 +16,12 @@ use WHSymfony\WHFormBundle\Form\Type\Extension\ButtonTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\CheckboxTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\ChoiceTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\CollectionTypeExtension;
-use WHSymfony\WHFormBundle\Form\Type\Extension\DateTimeTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\EnumTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\FormTypeExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\ImmutableTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\MakeTypesOptionalExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\MoneyTypeExtension;
+use WHSymfony\WHFormBundle\Form\Type\Extension\MutableTextTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\Extension\NumberTypesExtension;
 use WHSymfony\WHFormBundle\Form\Type\InfoType;
 use WHSymfony\WHFormBundle\Form\Type\ModalSelectType;
@@ -84,8 +84,8 @@ class WHFormBundle extends AbstractBundle
 				->tag('form.type_extension', ['priority' => 95])
 			->set('whform.type_extension.immutable', ImmutableTypesExtension::class)
 				->tag('form.type_extension', ['priority' => 93])
-			->set('whform.type_extension.datetime', DateTimeTypesExtension::class)
-				->tag('form.type_extension', ['priority' => 91])
+			->set('whform.type_extension.mutable', MutableTextTypesExtension::class)
+				->tag('form.type_extension', ['priority' => 77])
 		;
 
 		if( $config['form']['default_optional'] ) {

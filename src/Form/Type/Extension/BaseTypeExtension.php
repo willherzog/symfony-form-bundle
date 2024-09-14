@@ -124,9 +124,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 		if( $options['immutable'] ) {
 			$rowClasses[] = 'immutable';
 
-			if( ($formType->getInnerType() instanceof TextType)
-				|| ($formType->getInnerType() instanceof TextareaType)
-			) {
+			if( $form->getConfig()->getAttribute('supports_readonly', false) ) {
 				$view->vars['attr']['readonly'] = true;
 			}
 		} else {

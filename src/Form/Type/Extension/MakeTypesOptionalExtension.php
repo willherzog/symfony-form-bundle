@@ -20,18 +20,12 @@ class MakeTypesOptionalExtension extends AbstractTypeExtension
 		return [
 			Type\CheckboxType::class,
 			Type\ChoiceType::class,
-			Type\DateType::class,
-			Type\EmailType::class,
 			Type\FileType::class,
 			Type\IntegerType::class,
 			Type\MoneyType::class,
 			Type\NumberType::class,
-			Type\PasswordType::class,
 			Type\PercentType::class,
-			Type\TelType::class,
-			Type\TextType::class,
-			Type\TextareaType::class,
-			Type\UrlType::class
+			Type\TextType::class
 		];
 	}
 

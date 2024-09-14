@@ -19,7 +19,6 @@ class ImmutableTypesExtension extends AbstractTypeExtension
 			Type\IntegerType::class,
 			Type\MoneyType::class,
 			Type\NumberType::class,
-			Type\PasswordType::class,
 			Type\PercentType::class,
 			Type\TextType::class
 		];

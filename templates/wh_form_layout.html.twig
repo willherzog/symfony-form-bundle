@@ -136,7 +136,7 @@
 {% block datetime_widget %}
 	{%- if widget == 'single_text' %}
 		{{~ block('form_widget_simple') }}
-	{%- else %}
+	{%~ else %}
 {{ form_indent() }}<div {{ block('widget_container_attributes') }}>
 		{%- do form_increment_indent_level() %}
 			{{~ form_widget(form.date) }}
@@ -151,7 +151,7 @@
 {% block date_widget %}
 	{%- if widget == 'single_text' %}
 		{{~ block('form_widget_simple') }}
-	{%- else %}
+	{%~ else %}
 {{ form_indent() }}<div {{ block('widget_container_attributes') }}>
 		{%- do form_increment_indent_level() %}
 		{{~ date_pattern|replace({
@@ -167,7 +167,7 @@
 {% block time_widget %}
 	{%- if widget == 'single_text' %}
 		{{~ block('form_widget_simple') }}
-	{%- else %}
+	{%~ else %}
 		{%~ set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} %}
 {{ form_indent() }}<div {{ block('widget_container_attributes') }}>
 		{%- do form_increment_indent_level() %}
@@ -182,7 +182,7 @@
 {% block week_widget %}
 	{%- if widget == 'single_text' %}
 		{{~ block('form_widget_simple') }}
-	{%- else %}
+	{%~ else %}
 		{%~ set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} %}
 {{ form_indent() }}<div {{ block('widget_container_attributes') }}>
 		{%- do form_increment_indent_level() %}

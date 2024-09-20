@@ -3,7 +3,7 @@
 namespace WHSymfony\WHFormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\{FormInterface,FormView};
+use Symfony\Component\Form\{FormBuilderInterface,FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -45,8 +45,13 @@ class ModalImageSelectType extends AbstractType
 		;
 	}
 
+	public function buildForm(FormBuilderInterface $builder, array $options)
+	{
+		$builder->setAttribute('button_default_label', $this->buttonDefaultLabel);
+	}
+
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
-		$view->vars['attr']['data-default-label'] = $this->buttonDefaultLabel;
+		$view->vars['attr']['data-default-label'] = $form->getConfig()->getAttribute('button_default_label', '');
 	}
 }

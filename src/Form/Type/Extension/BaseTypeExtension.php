@@ -94,6 +94,7 @@ class BaseTypeExtension extends AbstractTypeExtension
 		$type = match($blockPrefix) {
 			'choice' => $options['expanded'] ? ($options['multiple'] ? 'checkbox' : 'radio') : 'select',
 			'integer', 'money', 'percent' => 'number',
+			'ulid', 'uuid' => 'text',
 			'include' => 'custom',
 			default => $blockPrefix
 		};

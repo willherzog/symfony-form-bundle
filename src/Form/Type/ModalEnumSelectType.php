@@ -5,7 +5,6 @@ namespace WHSymfony\WHFormBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\{FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 use WHSymfony\WHFormBundle\Config\LabelAwareEnum;
 
@@ -14,10 +13,9 @@ use WHSymfony\WHFormBundle\Config\LabelAwareEnum;
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
-class ModalEnumSelectType extends AbstractType
+class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInterface
 {
-	public function __construct(protected readonly TranslatorInterface $translator)
-	{}
+	use TypeWithTranslatorTrait;
 
 	public function getParent(): string
 	{
@@ -55,6 +53,6 @@ class ModalEnumSelectType extends AbstractType
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
 		$view->vars['translate_button_text'] = true;
-		$view->vars['attr']['data-default-label'] = $this->translator->trans($options['default_button_label']);
+		$view->vars['attr']['data-default-label'] = $this->getTranslator()->trans($options['default_button_label']);
 	}
 }

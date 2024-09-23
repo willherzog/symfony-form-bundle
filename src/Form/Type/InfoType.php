@@ -5,19 +5,14 @@ namespace WHSymfony\WHFormBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\{FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyAccess\{PropertyAccess,PropertyAccessorInterface,PropertyPath,PropertyPathInterface};
+use Symfony\Component\PropertyAccess\{PropertyPath,PropertyPathInterface};
 
 /**
  * @author Will Herzog <willherzog@gmail.com>
  */
-class InfoType extends AbstractType
+class InfoType extends AbstractType implements TypeWithPropertyAccessorInterface
 {
-	protected PropertyAccessorInterface $propertyAccessor;
-
-	public function __construct(PropertyAccessorInterface $propertyAccessor = null)
-	{
-		$this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
-	}
+	use TypeWithPropertyAccessorTrait;
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -52,7 +47,7 @@ class InfoType extends AbstractType
 			}
 
 			if( $labelSetter instanceof PropertyPathInterface ) {
-				$labelValue = $this->propertyAccessor->getValue($formData, $labelSetter);
+				$labelValue = $this->getPropertyAccessor()->getValue($formData, $labelSetter);
 			}
 		}
 

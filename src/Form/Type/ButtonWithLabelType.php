@@ -5,7 +5,7 @@ namespace WHSymfony\WHFormBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\{FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyAccess\{PropertyAccess,PropertyAccessorInterface,PropertyPath,PropertyPathInterface};
+use Symfony\Component\PropertyAccess\{PropertyPath,PropertyPathInterface};
 
 /**
  * Abstract button type with a standard field label to fit more easily into generic form layouts.
@@ -15,14 +15,9 @@ use Symfony\Component\PropertyAccess\{PropertyAccess,PropertyAccessorInterface,P
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
-abstract class ButtonWithLabelType extends AbstractType
+abstract class ButtonWithLabelType extends AbstractType implements TypeWithPropertyAccessorInterface
 {
-	protected PropertyAccessorInterface $propertyAccessor;
-
-	public function __construct(PropertyAccessorInterface $propertyAccessor = null)
-	{
-		$this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
-	}
+	use TypeWithPropertyAccessorTrait;
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -50,7 +45,7 @@ abstract class ButtonWithLabelType extends AbstractType
 			}
 
 			if( $textSetter instanceof PropertyPathInterface ) {
-				$buttonText = $this->propertyAccessor->getValue($formData, $textSetter);
+				$buttonText = $this->getPropertyAccessor()->getValue($formData, $textSetter);
 			}
 		}
 

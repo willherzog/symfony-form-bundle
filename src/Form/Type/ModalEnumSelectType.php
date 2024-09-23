@@ -30,7 +30,7 @@ class ModalEnumSelectType extends AbstractType
 			->setDefault('button_text', function (FormInterface $form, array $options): string {
 				$currentValue = $form->getData();
 
-				if( !empty($currentValue) && is_a($options['class'], LabelAwareEnum::class, true) ) {
+				if( !empty($currentValue) && is_a($options['class'], \BackedEnum::class, true) && is_a($options['class'], LabelAwareEnum::class, true) ) {
 					return $options['class']::tryFrom($currentValue)?->getLabel() ?? $currentValue;
 				}
 

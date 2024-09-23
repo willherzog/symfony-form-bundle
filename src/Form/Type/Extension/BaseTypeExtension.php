@@ -142,6 +142,10 @@ class BaseTypeExtension extends AbstractTypeExtension
 			$rowClasses[] = StringUtil::convertUnderscoresToDashes($options['inter_field_rel']);
 		}
 
+		if( $form->isSubmitted() && !$form->isValid() ) {
+			$rowClasses[] = 'has-error';
+		}
+
 		$rowClassesStr = implode(' ', $rowClasses);
 
 		if( isset($view->vars['row_attr']['class']) ) {

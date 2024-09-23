@@ -117,11 +117,9 @@ class WHFormBundle extends AbstractBundle
 				->tag('form.type')
 			->set('whform.type.modal_image_select', ModalImageSelectType::class)
 				->args([service('translator')])
-				->call('setPropertyAccessor', [service('form.property_accessor')->ignoreOnInvalid()])
 				->tag('form.type')
 			->set('whform.type.modal_enum_select', ModalEnumSelectType::class)
 				->call('setTranslator', [service('translator')])
-				->call('setPropertyAccessor', [service('form.property_accessor')->ignoreOnInvalid()])
 				->tag('form.type')
 
 			->set('whform.twig.extension', WHFormExtension::class)

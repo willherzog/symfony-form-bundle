@@ -24,29 +24,25 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver
-			->setDefault('button_text', function (FormInterface $form, array $options): string {
-				$currentValue = $form->getData();
+		$resolver->setDefault('button_text', function (FormInterface $form, array $options): string {
+			$currentValue = $form->getData();
 
-				if( !empty($currentValue) && is_a($options['class'], \BackedEnum::class, true) && is_a($options['class'], LabelAwareEnum::class, true) ) {
-					return $options['class']::tryFrom($currentValue)?->getLabel() ?? $currentValue;
-				}
+			if( !empty($currentValue) && is_a($options['class'], \BackedEnum::class, true) && is_a($options['class'], LabelAwareEnum::class, true) ) {
+				return $options['class']::tryFrom($currentValue)?->getLabel() ?? $currentValue;
+			}
 
-				return $options['default_button_label'];
-			})
+			return $options['default_button_label'];
+		});
+
+		$resolver->define('default_button_label')
+			->default('wh_form.label.click_to_change')
+			->allowedTypes('string')
 		;
 
-		$resolver
-			->define('default_button_label')
-				->default('wh_form.label.click_to_change')
-				->allowedTypes('string')
-		;
-
-		$resolver
-			->define('class')
-				->required()
-				->allowedTypes('string')
-				->allowedValues(enum_exists(...))
+		$resolver->define('class')
+			->required()
+			->allowedTypes('string')
+			->allowedValues(enum_exists(...))
 		;
 	}
 

@@ -17,8 +17,8 @@ class ModalSelectType extends ButtonWithLabelType
 		parent::configureOptions($resolver);
 
 		$resolver->define('button_tooltip')
-			->default('wh_form.label.click_to_change')
 			->allowedTypes('null', 'string')
+			->default('wh_form.label.click_to_change')
 		;
 	}
 

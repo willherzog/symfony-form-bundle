@@ -61,8 +61,6 @@ abstract class ButtonWithLabelType extends AbstractType implements TypeWithPrope
 
 		if( is_callable($textSetter) ) {
 			$buttonText = $textSetter($form);
-		} elseif( empty($formData) && $defaultLabel !== '' ) {
-			$buttonText = $defaultLabel;
 		} elseif( is_array($formData) || is_object($formData) ) {
 			if( is_string($textSetter) ) {
 				$textSetter = new PropertyPath($textSetter);
@@ -74,6 +72,10 @@ abstract class ButtonWithLabelType extends AbstractType implements TypeWithPrope
 		}
 
 		if( !isset($buttonText) ) {
+			if( empty($formData) && $defaultLabel !== '' ) {
+				$buttonText = $defaultLabel;
+			}
+
 			$buttonText = (string) $formData;
 		}
 

@@ -417,7 +417,7 @@
 {% block modal_select_widget %}
 	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
 	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
-{{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ translate_button_text|default(false) ? button_text|trans(attr_translation_parameters, translation_domain) : button_text }}</button>
+{{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_text }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
 {% endblock modal_select_widget %}
 

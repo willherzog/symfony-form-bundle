@@ -3,13 +3,13 @@
 namespace WHSymfony\WHFormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\{FormInterface,FormView};
+use Symfony\Component\Form\{FormBuilderInterface,FormInterface};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use WHSymfony\WHFormBundle\Config\LabelAwareEnum;
 
 /**
- * Enumerator-specific version of ModalSelectType with a suitable automated default for the "button_text" option.
+ * An enumerator-specific version of ModalSelectType.
  *
  * @author Will Herzog <willherzog@gmail.com>
  */
@@ -24,19 +24,34 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefault('button_text', function (FormInterface $form, array $options): string {
-			$currentValue = $form->getData();
+		$resolver
+			->setDefault('button_text', function (FormInterface $form): string {
+				$currentValue = $form->getData();
 
-			if( !empty($currentValue) && is_a($options['class'], \BackedEnum::class, true) && is_a($options['class'], LabelAwareEnum::class, true) ) {
-				return $options['class']::tryFrom($currentValue)?->getLabel() ?? $currentValue;
-			}
+				if( !empty($currentValue) ) {
+					$enumClass = $form->getConfig()->getAttribute('_enum_class');
 
-			return $options['default_button_label'];
-		});
+					if( is_subclass_of($enumClass, \BackedEnum::class) ) {
+						$enumValue = $enumClass::tryFrom($currentValue);
 
-		$resolver->define('default_button_label')
-			->default('wh_form.label.click_to_change')
-			->allowedTypes('string')
+						if( $enumValue === null ) {
+							return (string) $currentValue;
+						} elseif( is_subclass_of($enumClass, LabelAwareEnum::class) ) {
+							$translationDomain = $form->getConfig()->getAttribute('_translation_domain');
+
+							if( $translationDomain !== false ) {
+								return $this->translator->trans($enumValue->getLabel(), domain: $translationDomain);
+							} else {
+								return $enumValue->getLabel();
+							}
+						} else {
+							return (string) $enumValue;
+						}
+					}
+				}
+
+				return $form->getConfig()->getAttribute(ButtonWithLabelType::DEFAULT_BUTTON_LABEL_ATTR, '');
+			})
 		;
 
 		$resolver->define('class')
@@ -46,9 +61,10 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 		;
 	}
 
-	public function buildView(FormView $view, FormInterface $form, array $options): void
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
-		$view->vars['translate_button_text'] = true;
-		$view->vars['attr']['data-default-label'] = $this->getTranslator()->trans($options['default_button_label']);
+		// Make these options available directly from the form config
+		$builder->setAttribute('_enum_class', $options['class']);
+		$builder->setAttribute('_translation_domain', $options['translation_domain']);
 	}
 }

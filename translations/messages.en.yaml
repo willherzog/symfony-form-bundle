@@ -3,4 +3,5 @@ wh_form:
         add_item: Add Item
         click_to_change: Click to change value…
         select_image: '(Select Image)'
+        select_value: '(Select Value)'
         settings: Settings

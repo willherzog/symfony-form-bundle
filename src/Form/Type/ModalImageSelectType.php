@@ -21,7 +21,7 @@ class ModalImageSelectType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver
-			->setDefault('button_text', function (FormInterface $form): string {
+			->setDefault('button_text', function (FormInterface $form): ?string {
 				$image = $form->getData();
 
 				if( $image !== null && $image !== '' ) {

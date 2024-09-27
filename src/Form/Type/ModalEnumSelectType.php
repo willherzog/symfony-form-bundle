@@ -25,7 +25,7 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver
-			->setDefault('button_text', function (FormInterface $form): string {
+			->setDefault('button_text', function (FormInterface $form): ?string {
 				$currentValue = $form->getData();
 
 				if( !empty($currentValue) ) {

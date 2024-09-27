@@ -66,9 +66,9 @@ abstract class ButtonWithLabelType extends AbstractType implements TypeWithPrope
 				$buttonText = $defaultLabel;
 			}
 
-			$buttonText = (string) $formData;
+			$buttonText = $formData;
 		}
 
-		$view->vars['button_text'] = $buttonText;
+		$view->vars['button_text'] = (string) $buttonText;
 	}
 }

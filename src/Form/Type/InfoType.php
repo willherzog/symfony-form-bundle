@@ -52,10 +52,10 @@ class InfoType extends AbstractType implements TypeWithPropertyAccessorInterface
 		}
 
 		if( !isset($labelValue) ) {
-			$labelValue = (string) $formData;
+			$labelValue = $formData;
 		}
 
-		$view->vars['value_label'] = $labelValue;
+		$view->vars['value_label'] = (string) $labelValue;
 		$view->vars['value_label_has_html'] = $options['value_label_has_html'];
 		$view->vars['value_label_element'] = $options['use_block_level_value_label'] ? 'div' : 'span';
 

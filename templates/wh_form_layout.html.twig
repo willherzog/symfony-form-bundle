@@ -399,7 +399,7 @@
 {% block info_widget %}
 	{%~ set attr = form_attr_html_classes(attr, ['info-widget']) %}
 	{#~ This field type has no widget, per se, so simply using "attributes" here #}
-{{ form_indent() }}<{{ value_label_element|default('span') }} id="{{ id }}"{{ block('attributes') }}{% if value is defined and value is not empty %} data-value="{{ value|e('html_attr') }}"{% endif %}>{% if value_label_has_html %}{{ value_label|raw }}{% else %}{{ value_label }}{% endif %}</{{ value_label_element|default('span') }}>
+{{ form_indent() }}<{{ value_label_element }} id="{{ id }}"{{ block('attributes') }}{% if value is defined and value is not empty %} data-value="{{ value|e('html_attr') }}"{% endif %}>{% if value_label_has_html %}{{ value_label|raw }}{% else %}{{ value_label }}{% endif %}</{{ value_label_element }}>
 {% endblock info_widget %}
 
 {% block action_widget %}

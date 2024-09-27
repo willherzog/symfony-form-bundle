@@ -50,7 +50,7 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 					}
 				}
 
-				return $form->getConfig()->getAttribute(ButtonWithLabelType::DEFAULT_BUTTON_LABEL_ATTR, '');
+				return null;
 			})
 		;
 

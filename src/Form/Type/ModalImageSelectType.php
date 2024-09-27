@@ -32,7 +32,7 @@ class ModalImageSelectType extends AbstractType
 					return (string) $image;
 				}
 
-				return $form->getConfig()->getAttribute(ButtonWithLabelType::DEFAULT_BUTTON_LABEL_ATTR, '');
+				return null;
 			})
 			->setDefault('default_button_label', 'wh_form.label.select_image')
 		;

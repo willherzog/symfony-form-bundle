@@ -3,7 +3,7 @@
 namespace WHSymfony\WHFormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\{FormBuilderInterface,FormInterface,FormView};
+use Symfony\Component\Form\{FormInterface,FormView};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\{PropertyPath,PropertyPathInterface};
 
@@ -15,8 +15,6 @@ use Symfony\Component\PropertyAccess\{PropertyPath,PropertyPathInterface};
 abstract class ButtonWithLabelType extends AbstractType implements TypeWithPropertyAccessorInterface, TypeWithTranslatorInterface
 {
 	use TypeWithPropertyAccessorTrait, TypeWithTranslatorTrait;
-
-	final public const DEFAULT_BUTTON_LABEL_ATTR = '_default_button_label';
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -35,7 +33,7 @@ abstract class ButtonWithLabelType extends AbstractType implements TypeWithPrope
 		;
 	}
 
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
 		$defaultLabel = $options['default_button_label'] ?? '';
 
@@ -44,15 +42,6 @@ abstract class ButtonWithLabelType extends AbstractType implements TypeWithPrope
 				$defaultLabel = $this->translator->trans($defaultLabel, domain: $options['translation_domain']);
 			}
 
-			$builder->setAttribute(self::DEFAULT_BUTTON_LABEL_ATTR, $defaultLabel);
-		}
-	}
-
-	public function buildView(FormView $view, FormInterface $form, array $options): void
-	{
-		$defaultLabel = $form->getConfig()->getAttribute(self::DEFAULT_BUTTON_LABEL_ATTR, '');
-
-		if( $defaultLabel !== '' ) {
 			$view->vars['attr']['data-default-label'] = $defaultLabel;
 		}
 

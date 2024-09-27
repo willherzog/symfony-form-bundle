@@ -21,12 +21,11 @@ abstract class ButtonWithLabelType extends AbstractType implements TypeWithPrope
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver
-			->setDefaults([
-				'compound' => false,
-				'button_text' => null
-			])
-			->setAllowedTypes('button_text', ['null', 'callable', 'string', PropertyPath::class])
+		$resolver->setDefault('compound', false);
+
+		$resolver->define('button_text')
+			->allowedTypes('null', 'callable', 'string', PropertyPath::class)
+			->default(null)
 		;
 	}
 

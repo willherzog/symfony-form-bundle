@@ -68,7 +68,7 @@ class WHFormExtension extends AbstractExtension implements GlobalsInterface
 				return $this->indentLevel;
 			}),
 
-			new TwigFunction('form_attr_html_classes', function (array $attr, array $prefixes, array $suffixes = []): array {
+			new TwigFunction('form_attr_html_classes', function (array $attr, array $prefixes = [], array $suffixes = []): array {
 				$classes = $prefixes;
 
 				if( isset($attr['class']) && is_string($attr['class']) ) {

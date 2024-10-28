@@ -70,6 +70,12 @@ abstract class ButtonWithLabelType extends AbstractTypeWithDynamicLabel
 			unset($options['value_label'], $options['unset_value_label']);
 
 			$view->vars['value_label'] = $this->getDynamicLabelValue($view, $form, $options);
+
+			if( isset($view->vars['attr']['data-default-label']) ) {
+				$view->vars['value_label_default'] = $view->vars['attr']['data-default-label'];
+
+				unset($view->vars['attr']['data-default-label']);
+			}
 		} else {
 			$options[parent::LABEL_SETTER_OPTION] = $options['button_text'];
 			$options[parent::DEFAULT_LABEL_OPTION] = $options['default_button_label'];

@@ -416,7 +416,7 @@
 
 {% block modal_select_widget %}
 {% if use_separate_value_label %}
-{{ form_indent() }}<span class="value-label">{{ value_label }}</span>
+{{ form_indent() }}<span class="value-label"{% if value_label_default is defined %} data-default="{{ value_label_default }}"{% endif %}>{{ value_label }}</span>
 {% endif %}
 {% set attr = form_attr_html_classes(attr, ['action']) %}
 {# The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}

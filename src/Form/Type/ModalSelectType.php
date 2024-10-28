@@ -36,7 +36,7 @@ class ModalSelectType extends ButtonWithLabelType
 		$view->vars['attr']['aria-haspopup'] = 'dialog';
 
 		if( !isset($view->vars['attr']['class']) ) {
-			$view->vars['attr']['class'] = $this->useSeparateValueLabel ? 'select' : 'select-item';
+			$view->vars['attr']['class'] = 'select-item';
 		}
 
 		if(

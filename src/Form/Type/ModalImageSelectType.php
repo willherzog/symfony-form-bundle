@@ -20,21 +20,25 @@ class ModalImageSelectType extends AbstractType
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver
-			->setDefault('button_text', function (FormInterface $form): ?string {
-				$image = $form->getData();
+		$labelSetterOption = $resolver->isDefined('value_label') ? 'value_label' : 'button_text';
+		$resolver->setDefault($labelSetterOption, function (FormInterface $form): ?string {
+			$image = $form->getData();
 
-				if( $image !== null && $image !== '' ) {
-					if( is_object($image) && method_exists($image, 'getName') ) {
-						return (string) $image->getName();
-					}
-
-					return (string) $image;
+			if( $image !== null && $image !== '' ) {
+				if( is_object($image) && method_exists($image, 'getName') ) {
+					return (string) $image->getName();
 				}
 
-				return null;
-			})
-			->setDefault('default_button_label', 'wh_form.label.select_image')
-		;
+				return (string) $image;
+			}
+
+			return null;
+		});
+
+		if( $resolver->isDefined('default_button_label') ) {
+			$resolver->setDefault('default_button_label', 'wh_form.label.select_image');
+		} else {
+			$resolver->setDefault('button_label', 'wh_form.label.select_image_alt');
+		}
 	}
 }

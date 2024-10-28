@@ -388,41 +388,44 @@
 
 {% block toggle_switch_widget %}
 {{ form_indent() }}<button type="button" class="stylable-widget toggle-switch-widget{% if checked %} enabled{% endif %}" role="presentation"></button>
-	{{~ block('checkbox_widget') }}
+{{ block('checkbox_widget') }}
 {% endblock toggle_switch_widget %}
 
 {% block toggle_switch_with_settings_widget %}
-	{{~ block('toggle_switch_widget') }}
+{{ block('toggle_switch_widget') }}
 {{ form_indent() }}<button type="button" aria-haspopup="dialog"{% with { attr: button_attr } %}{{ block('attributes') }}{% endwith %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
 {% endblock toggle_switch_with_settings_widget %}
 
 {% block info_widget %}
-	{%~ set attr = form_attr_html_classes(attr, ['info-widget']) %}
-	{#~ This field type has no widget, per se, so simply using "attributes" here #}
+{% set attr = form_attr_html_classes(attr, ['info-widget']) %}
+{# This field type has no widget, per se, so simply using "attributes" here #}
 {{ form_indent() }}<{{ value_label_element }} id="{{ id }}"{{ block('attributes') }}{% if value is defined and value is not empty %} data-value="{{ value|e('html_attr') }}"{% endif %}>{% if value_label_has_html %}{{ value_label|raw }}{% else %}{{ value_label }}{% endif %}</{{ value_label_element }}>
 {% endblock info_widget %}
 
 {% block action_widget %}
-	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
+{% set attr = form_attr_html_classes(attr, ['action']) %}
 {{ form_indent() }}<button type="button" {{ block('button_attributes') }}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
 {% endblock action_widget %}
 
 {% block modal_editor_widget %}
-	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
-	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
+{% set attr = form_attr_html_classes(attr, ['action']) %}
+{# The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
 {{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
 {% endblock modal_editor_widget %}
 
 {% block modal_select_widget %}
-	{%~ set attr = form_attr_html_classes(attr, ['action']) %}
-	{#~ The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
-{{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ button_text }}</button>
+{% if use_separate_value_label %}
+{{ form_indent() }}<span class="value-label">{{ value_label }}</span>
+{% endif %}
+{% set attr = form_attr_html_classes(attr, ['action']) %}
+{# The hidden input is technically the actual field widget, so the "button_attributes" block cannot be used here #}
+{{ form_indent() }}<button type="button" id="{{ id }}"{{ block('attributes') }}{% if disabled %} disabled{% endif %}>{{ use_separate_value_label ? button_label : button_text }}</button>
 {{ form_indent() }}{{ block('form_widget_hidden') }}
 {% endblock modal_select_widget %}
 
 {% block include_widget %}
-	{{~ include(template, template_context) }}
+{{ include(template, template_context) }}
 {% endblock include_widget %}
 
 {% block divider_widget %}

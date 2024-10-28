@@ -16,12 +16,17 @@ class ModalSelectType extends ButtonWithLabelType
 	{
 		parent::configureOptions($resolver);
 
-		$resolver->setDefault('default_button_label', 'wh_form.label.select_value');
+		if( $this->useSeparateValueLabel ) {
+			$resolver->setDefault('button_label', 'wh_form.label.select_value_alt');
+			$resolver->setDefault('unset_value_label', 'wh_form.value.not_set');
+		} else {
+			$resolver->setDefault('default_button_label', 'wh_form.label.select_value');
 
-		$resolver->define('button_tooltip')
-			->allowedTypes('null', 'string')
-			->default('wh_form.label.click_to_change')
-		;
+			$resolver->define('button_tooltip')
+				->allowedTypes('null', 'string')
+				->default('wh_form.label.click_to_change')
+			;
+		}
 	}
 
 	public function buildView(FormView $view, FormInterface $form, array $options): void
@@ -31,10 +36,15 @@ class ModalSelectType extends ButtonWithLabelType
 		$view->vars['attr']['aria-haspopup'] = 'dialog';
 
 		if( !isset($view->vars['attr']['class']) ) {
-			$view->vars['attr']['class'] = 'select-item';
+			$view->vars['attr']['class'] = $this->useSeparateValueLabel ? 'select' : 'select-item';
 		}
 
-		if( !$form->isDisabled() && $options['button_tooltip'] !== null && $options['button_tooltip'] !== '' ) {
+		if(
+			!$this->useSeparateValueLabel
+			&& !$form->isDisabled()
+			&& $options['button_tooltip'] !== null
+			&& $options['button_tooltip'] !== ''
+		) {
 			$view->vars['attr']['title'] = $options['button_tooltip'];
 		}
 	}

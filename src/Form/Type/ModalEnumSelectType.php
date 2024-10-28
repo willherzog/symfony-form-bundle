@@ -24,35 +24,34 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver
-			->setDefault('button_text', function (FormInterface $form): ?string {
-				$currentValue = $form->getData();
+		$labelSetterOption = $resolver->isDefined('value_label') ? 'value_label' : 'button_text';
+		$resolver->setDefault($labelSetterOption, function (FormInterface $form): ?string {
+			$currentValue = $form->getData();
 
-				if( !empty($currentValue) ) {
-					$enumClass = $form->getConfig()->getAttribute('_enum_class');
+			if( !empty($currentValue) ) {
+				$enumClass = $form->getConfig()->getAttribute('_enum_class');
 
-					if( is_subclass_of($enumClass, \BackedEnum::class) ) {
-						$enumValue = $enumClass::tryFrom($currentValue);
+				if( is_subclass_of($enumClass, \BackedEnum::class) ) {
+					$enumValue = $enumClass::tryFrom($currentValue);
 
-						if( $enumValue === null ) {
-							return (string) $currentValue;
-						} elseif( is_subclass_of($enumClass, LabelAwareEnum::class) ) {
-							$translationDomain = $form->getConfig()->getAttribute('_translation_domain');
+					if( $enumValue === null ) {
+						return (string) $currentValue;
+					} elseif( is_subclass_of($enumClass, LabelAwareEnum::class) ) {
+						$translationDomain = $form->getConfig()->getAttribute('_translation_domain');
 
-							if( $translationDomain !== false ) {
-								return $this->translator->trans($enumValue->getLabel(), domain: $translationDomain);
-							} else {
-								return $enumValue->getLabel();
-							}
+						if( $translationDomain !== false ) {
+							return $this->translator->trans($enumValue->getLabel(), domain: $translationDomain);
 						} else {
-							return (string) $enumValue;
+							return $enumValue->getLabel();
 						}
+					} else {
+						return (string) $enumValue;
 					}
 				}
+			}
 
-				return null;
-			})
-		;
+			return null;
+		});
 
 		$resolver->define('class')
 			->required()

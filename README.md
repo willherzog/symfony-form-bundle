@@ -24,7 +24,7 @@ This bundle's focus is primarily on form presentation (as opposed to form proces
 * `DividerType` – Allows inclusion of a horizontal rule (i.e. an `<hr>` tag) within a form
 * `ActionType` – A custom alternative to Symfony's `ButtonType` which has a separate `button_label` option (in addition to the standard field `label`); it also always has the HTML class "action"
 * `ModalEditorType` – Similar to `ActionType`, but is mapped to the underlying data (using a hidden input) and always includes the HTML attribute `aria-haspopup="dialog"`
-* `ModalSelectType`, `ModalImageSelectType` and `ModalEnumSelectType` – Button-based types specifically for selecting a value from a modal dialog (the value is stored in a hidden input); these also always includes the HTML attribute `aria-haspopup="dialog"`
+* `ModalSelectType`, `ModalImageSelectType` and `ModalEnumSelectType` – Button-based types specifically for selecting a value from a modal dialog (the value is stored in a hidden input); these also always includes the HTML attribute `aria-haspopup="dialog"`. Which field options they have depends on one of this bundle's config directives (see "Default Configuration" below).
 
 ## Other Features
 
@@ -94,4 +94,6 @@ wh_form:
         default_indent: 2 # Starting indentation level when not using form_set_indent_level(x) (or after calling it without an argument)
         default_optional: true # Whether to make most fields optional by default
         id_attributes_use_dashes: true # Whether to convert underscores in field names to dashes (for use with the HTML "id" attribute on the field widget)
+        use_separate_value_label: false # Whether the modal select field types (ModalSelectType, ModalImageSelectType and ModalEnumSelectType) should have a separate, human-readable "value label" element (instead of using the button text itself for this purpose).
 ```
+Note that, by default, the modal select field types have the options `button_text` and `default_button_label`, but if __use_separate_value_label__ is enabled they will have the options `button_label`, `value_label` and `unset_value_label` instead (more info about both sets of options can be found in `WHSymfony\WHFormBundle\Form\Type\ButtonWithLabelType`).

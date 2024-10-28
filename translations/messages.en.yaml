@@ -3,5 +3,9 @@ wh_form:
         add_item: Add Item
         click_to_change: Click to change value…
         select_image: '(Select Image)'
+        select_image_alt: Select Image
         select_value: '(Select Value)'
+        select_value_alt: Select Value
         settings: Settings
+    value:
+        not_set: '(not set)'

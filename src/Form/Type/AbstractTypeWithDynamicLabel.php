@@ -54,9 +54,9 @@ abstract class AbstractTypeWithDynamicLabel extends AbstractType implements Type
 		if( !isset($labelValue) ) {
 			if( $defaultLabel !== '' && empty($formData) ) {
 				$labelValue = $defaultLabel;
+			} else {
+				$labelValue = $formData;
 			}
-
-			$labelValue = $formData;
 		}
 
 		return (string) $labelValue;

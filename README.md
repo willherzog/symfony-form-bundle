@@ -26,6 +26,37 @@ This bundle's focus is primarily on form presentation (as opposed to form proces
 * `ModalEditorType` – Similar to `ActionType`, but is mapped to the underlying data (using a hidden input) and always includes the HTML attribute `aria-haspopup="dialog"`
 * `ModalSelectType`, `ModalImageSelectType` and `ModalEnumSelectType` – Button-based types specifically for selecting a value from a modal dialog (the value is stored in a hidden input); these also always includes the HTML attribute `aria-haspopup="dialog"`. Which field options they have depends on one of this bundle's config directives (see "Default Configuration" below).
 
+## Data Transformers
+
+See: <https://symfony.com/doc/current/form/data_transformers.html>
+
+* `SimpleBoolToStringTransformer` - A simpler version of the Symfony core `BooleanToStringTransformer` that omits the `$falseValues` argument (PHP's `empty()` function is used instead) and provides a default for the `$trueValue` argument.
+* `BackedEnumToStringTransformer` - A view transformer for transforming between a case of a `BackedEnum` and a string (i.e. for when a `BackedEnum` is the data type for some field that is not an `EnumType`).
+
+To use one of these with a hidden field (for example):
+
+```php
+// src/Form/Type/ExampleType.php
+namespace App\Form\Type;
+
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
+use WHSymfony\WHFormBundle\Form\DataTransformer\BackedEnumToStringTransformer;
+
+use App\Config\ExampleBackedEnum;
+
+// ...
+
+    /** @var FormBuilderInterface */
+    $builder->add('my_backed_enum_field', HiddenType::class);
+
+    $builder->get('my_backed_enum_field')
+        ->addViewTransformer(new BackedEnumToStringTransformer(ExampleBackedEnum::class));
+
+    // ...
+```
+
 ## Other Features
 
 There are also several changes directly in the form layout template (based on the `form_div_layout.html.twig` template from `symfony/twig-bridge`):

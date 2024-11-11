@@ -697,9 +697,7 @@
 
 {%- block collection_add_button -%}
 	<button type="button" class="action {{ add_button_class }}"
-	{%- if add_button_opens_dialog -%}
-	aria-haspopup="dialog"
-	{%- endif -%}
+	{%- if add_button_opens_dialog %} aria-haspopup="dialog"{% endif -%}
 	>{{ add_button_label|trans }}</button>
 {%- endblock collection_add_button -%}
 

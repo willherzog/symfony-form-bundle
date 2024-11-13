@@ -164,8 +164,8 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 		}
 
 		if( !fakeWidget.hasClass('checked') ) {
-			let groupedWidgets = fakeWidget.parents('.form-field.radio').find(`input[type=radio][name="${realWidget.attr('name')}"]`),
-				selectedWidget = groupedWidgets.filter(':checked');
+			const groupedWidgets = $(`input[type=radio][name="${realWidget.attr('name')}"]`);
+			const selectedWidget = groupedWidgets.filter(':checked');
 
 			selectedWidget.prop('checked', false);
 			selectedWidget.siblings('.radio-widget').removeClass('checked');

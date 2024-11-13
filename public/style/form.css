@@ -1,5 +1,6 @@
 /* Hide replaced widgets without *really* hiding them */
-.form-field .hidden-widget {
+input[type="checkbox"].hidden-widget,
+input[type="radio"].hidden-widget {
 	position: absolute;
 	left: -9999px;
 }

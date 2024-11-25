@@ -545,8 +545,8 @@
 		{%- if add_button_position == 'before' %}
 {{ indent }}{{ form_indent_prototype|raw }}{{ block('collection_add_button') }}
 		{%~ endif %}
-			{{- form_widget(form, widget_vars) }}
-			{{- form_errors(form) }}
+		{{- form_widget(form, widget_vars) }}
+		{{- form_errors(form) }}
 		{%- if add_button_position == 'after' ~%}
 {{ indent }}{{ form_indent_prototype|raw }}{{ block('collection_add_button') }}
 		{%- endif %}

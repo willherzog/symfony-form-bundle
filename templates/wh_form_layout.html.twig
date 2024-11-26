@@ -59,12 +59,13 @@
 {% endblock choice_widget %}
 
 {% block choice_widget_expanded %}
+	{%- set choice_label_vars = {translation_domain: choice_translation_domain} -%}
 	{%- if expanded_wrapping_strategy == 'wrap_all' %}
 {{ form_indent() }}<div class="expanded choices">
 		{%~ do form_increment_indent_level() %}
 			{%- for child in form %}
 				{{- form_widget(child) }}
-				{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
+				{{~ form_label(child, null, choice_label_vars) }}
 			{%- endfor %}
 		{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
@@ -73,14 +74,14 @@
 {{ form_indent() }}<div class="{{ expanded_choice_container_classes(value, child.vars.value) }}">
 			{%~ do form_increment_indent_level() %}
 				{{- form_widget(child) }}
-				{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
+				{{~ form_label(child, null, choice_label_vars) }}
 			{%- do form_decrement_indent_level() %}
 {{ form_indent() }}</div>
 		{%~ endfor %}
 	{%- else %}
 		{%- for child in form %}
 			{{- form_widget(child) }}
-			{{~ form_label(child, null, {translation_domain: choice_translation_domain}) }}
+			{{~ form_label(child, null, choice_label_vars) }}
 		{%- endfor %}
 	{%- endif %}
 {% endblock choice_widget_expanded %}

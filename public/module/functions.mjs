@@ -361,7 +361,7 @@ function setupFormFields(container = null, focusFirst = false, addClearDateButto
 }
 
 /**
- * Allow fieldsets with the class "collapsible" to be collapsed and expanded.
+ * Enable/disable a <select> element's <option> children based on which of the latter's value are already used.
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
@@ -391,7 +391,10 @@ function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
 }
 
 /**
- * Allow fieldsets with the class "collapsible" to be collapsed and expanded.
+ * Generate the HTML for a label-less remove button (intended to have a visual icon applied to it via CSS)
+ * with an optional title attribute (i.e. "tooltip").
+ *
+ * The output will always have the HTML classes `action` and `remove`.
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
@@ -414,7 +417,10 @@ function createRemoveButtonElement(tooltip) {
 }
 
 /**
- * Allow fieldsets with the class "collapsible" to be collapsed and expanded.
+ * Both adds and initializes a remove action for a sub-form (i.e. a removable entry within a form "collection").
+ * Calls {@link createRemoveButtonElement}
+ *
+ * @see [Symfony form collection documentation]{@link https://symfony.com/doc/current/form/form_collections.html}
  *
  * @author Will Herzog <willherzog@gmail.com>
  *

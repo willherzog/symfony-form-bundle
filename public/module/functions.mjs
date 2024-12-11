@@ -391,8 +391,7 @@ function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
 }
 
 /**
- * Generate the HTML for a label-less remove button (intended to have a visual icon applied to it via CSS)
- * with an optional title attribute (i.e. "tooltip").
+ * Generate the HTML for a label-less remove button (intended to have a visual icon applied to it via CSS).
  *
  * The output will always have the HTML classes `action` and `remove`.
  *

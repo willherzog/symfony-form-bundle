@@ -390,12 +390,12 @@
 {% block toggle_switch_widget %}
 {{ form_indent() }}<button type="button" class="stylable-widget toggle-switch-widget{% if checked %} enabled{% endif %}" role="presentation"></button>
 {{ block('checkbox_widget') }}
-{% endblock toggle_switch_widget %}
+{%- endblock toggle_switch_widget %}
 
 {% block toggle_switch_with_settings_widget %}
 {{ block('toggle_switch_widget') }}
 {{ form_indent() }}<button type="button" aria-haspopup="dialog"{% with { attr: button_attr } %}{{ block('attributes') }}{% endwith %}>{{ button_label|trans(attr_translation_parameters, translation_domain) }}</button>
-{% endblock toggle_switch_with_settings_widget %}
+{%- endblock toggle_switch_with_settings_widget %}
 
 {% block info_widget %}
 {% set attr = form_attr_html_classes(attr, ['info-widget']) %}

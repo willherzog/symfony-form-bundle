@@ -168,7 +168,9 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 		}
 	});
 
-	fakeWidget.on('click', () => {
+	realWidget.siblings(`label[for="${realWidget.attr('id')}"]`).add(fakeWidget).on('click', e => {
+		e.preventDefault();
+
 		if( realWidget.is(':disabled') ) {
 			return;
 		}

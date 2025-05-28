@@ -98,18 +98,22 @@ function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
 		realWidget.val(1);
 	}
 
-	realWidget.siblings(`label[for="${realWidget.attr('id')}"]`).add(fakeWidget).on('click', e => {
-		e.preventDefault();
+	realWidget.on('change', () => {
+		if( realWidget.is(':checked') ) {
+			fakeWidget.addClass('checked');
+		} else {
+			fakeWidget.removeClass('checked');
+		}
+	});
 
+	fakeWidget.on('click', () => {
 		if( realWidget.is(':disabled') ) {
 			return;
 		}
 
 		if( fakeWidget.hasClass('checked') ) {
-			fakeWidget.removeClass('checked');
 			realWidget.prop('checked', false);
 		} else {
-			fakeWidget.addClass('checked');
 			realWidget.prop('checked', true);
 		}
 
@@ -156,9 +160,15 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 		realWidget.val(1);
 	}
 
-	realWidget.siblings(`label[for="${realWidget.attr('id')}"]`).add(fakeWidget).on('click', e => {
-		e.preventDefault();
+	realWidget.on('change', () => {
+		if( realWidget.is(':checked') ) {
+			fakeWidget.addClass('checked');
+		} else {
+			fakeWidget.removeClass('checked');
+		}
+	});
 
+	fakeWidget.on('click', () => {
 		if( realWidget.is(':disabled') ) {
 			return;
 		}
@@ -168,11 +178,9 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 			const selectedWidget = groupedWidgets.filter(':checked');
 
 			selectedWidget.prop('checked', false);
-			selectedWidget.siblings('.radio-widget').removeClass('checked');
+			selectedWidget.trigger('change');
 
-			fakeWidget.addClass('checked');
 			realWidget.prop('checked', true);
-
 			realWidget.trigger('change');
 		}
 	});

@@ -178,7 +178,7 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 			const selectedWidget = groupedWidgets.filter(':checked');
 
 			selectedWidget.prop('checked', false);
-			selectedWidget.trigger('change');
+			selectedWidget.siblings('.radio-widget').removeClass('checked');
 
 			realWidget.prop('checked', true);
 			realWidget.trigger('change');

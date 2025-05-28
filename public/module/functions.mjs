@@ -160,14 +160,6 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 		realWidget.val(1);
 	}
 
-	realWidget.on('change', () => {
-		if( realWidget.is(':checked') ) {
-			fakeWidget.addClass('checked');
-		} else {
-			fakeWidget.removeClass('checked');
-		}
-	});
-
 	realWidget.siblings(`label[for="${realWidget.attr('id')}"]`).add(fakeWidget).on('click', e => {
 		e.preventDefault();
 
@@ -182,7 +174,9 @@ function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
 			selectedWidget.prop('checked', false);
 			selectedWidget.siblings('.radio-widget').removeClass('checked');
 
+			fakeWidget.addClass('checked');
 			realWidget.prop('checked', true);
+
 			realWidget.trigger('change');
 		}
 	});

@@ -40,7 +40,7 @@ class WHFormExtension extends AbstractExtension implements GlobalsInterface
 	public function getFunctions(): array
 	{
 		return [
-			new TwigFunction('form_indent', function (FormView $form = null): string {
+			new TwigFunction('form_indent', function (?FormView $form = null): string {
 				if( isset($form->vars['indent_levels']) ) {
 					$this->indentLevel = $form->vars['indent_levels'];
 				}
@@ -48,7 +48,7 @@ class WHFormExtension extends AbstractExtension implements GlobalsInterface
 				return str_repeat($this->indentPrototype, $this->indentLevel);
 			}),
 
-			new TwigFunction('form_set_indent_level', function (int $levelToSet = null): void {
+			new TwigFunction('form_set_indent_level', function (?int $levelToSet = null): void {
 				$this->indentLevel = $levelToSet ?? $this->defaultFormIndent;
 			}),
 

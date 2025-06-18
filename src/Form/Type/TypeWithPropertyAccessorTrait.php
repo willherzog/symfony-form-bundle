@@ -13,7 +13,7 @@ trait TypeWithPropertyAccessorTrait
 {
 	private PropertyAccessorInterface $propertyAccessor;
 
-	public function setPropertyAccessor(PropertyAccessorInterface $propertyAccessor = null): void
+	public function setPropertyAccessor(?PropertyAccessorInterface $propertyAccessor = null): void
 	{
 		$this->propertyAccessor = $propertyAccessor ?? PropertyAccess::createPropertyAccessor();
 	}

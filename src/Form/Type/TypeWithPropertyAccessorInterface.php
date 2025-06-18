@@ -11,5 +11,5 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 interface TypeWithPropertyAccessorInterface
 {
-	public function setPropertyAccessor(PropertyAccessorInterface $propertyAccessor = null): void;
+	public function setPropertyAccessor(?PropertyAccessorInterface $propertyAccessor = null): void;
 }

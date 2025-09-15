@@ -65,7 +65,7 @@ function activateToggleSwitch(container) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param {JQuery} realWidget jQuery instance of a single HTML input tag with type="checkbox"
+ * @param {JQuery} realWidget jQuery instance of a single HTML input tag with `type="checkbox"`
  * @param {boolean} [addTooltipIfDisabled] Whether to add the title attribute "Disabled" if the widget is disabled
  */
 function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
@@ -127,7 +127,7 @@ function makeStylableCheckboxWidget(realWidget, addTooltipIfDisabled = true) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param {JQuery} realWidget jQuery instance of a single HTML input tag with type="radio"
+ * @param {JQuery} realWidget jQuery instance of a single HTML input tag with `type="radio"`
  * @param {boolean} [addTooltipIfDisabled] Whether to add the title attribute "Disabled" if the widget is disabled
  */
 function makeStylableRadioWidget(realWidget, addTooltipIfDisabled = true) {
@@ -316,7 +316,7 @@ function moveCursorAfterLastCharacter(textBasedInput) {
  * @author Will Herzog <willherzog@gmail.com>
  *
  * @param {JQuery} [container] Optional jQuery instance of a containing form element (defaults to all form elements)
- * @param {boolean} [focusFirst] Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the "autofocus" attribute, this will only apply moveCursorAfterLastCharacter() to it
+ * @param {boolean} [focusFirst] Whether to switch focus to the first text-based input (in HTML markup order); if one such input is using the `autofocus` attribute, this will only apply `moveCursorAfterLastCharacter()` to it
  * @param {boolean} [addClearDateButtons] Whether to add a button to each HTML5 date input which, when clicked, resets the input's value
  */
 function setupFormFields(container = null, focusFirst = false, addClearDateButtons = false) {
@@ -401,7 +401,7 @@ function changeSelectOptionsEnablement(selectWidget, valuesInUse) {
  *
  * @author Will Herzog <willherzog@gmail.com>
  *
- * @param {string | boolean} [tooltip] Optional string value to use for the remove button's title attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
+ * @param {string | boolean} [tooltip] Optional string value to use for the remove button's `title` attribute (defaults to "Remove"; use an empty string or FALSE for no tooltip)
  */
 function createRemoveButtonElement(tooltip) {
 	if( tooltip === false ) {
@@ -428,9 +428,9 @@ function createRemoveButtonElement(tooltip) {
  * @author Will Herzog <willherzog@gmail.com>
  *
  * @param {JQuery} subForm jQuery instance of a sub-form to which the remove action should be added
- * @param {string | boolean} [removalTooltip] [Optional] - see "tooltip" parameter of createRemoveButtonElement()
+ * @param {string | boolean} [removalTooltip] [Optional] - see `tooltip` parameter of `createRemoveButtonElement()`
  * @param {Function} [callbackFn] Optional callback function to be called when the remove button is clicked
- * @param {*} [callbackData] Optional data to be used as the sole parameter for the callback function (if not set, the value of the "subform" parameter is used)
+ * @param {*} [callbackData] Optional data to be used as the sole parameter for the callback function (if not set, the value of the `subForm` parameter is used)
  */
 function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackData) {
 	if( typeof subForm !== 'object' || !(subForm instanceof $) ) {

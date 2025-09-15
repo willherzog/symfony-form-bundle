@@ -431,8 +431,9 @@ function createRemoveButtonElement(tooltip) {
  * @param {string | boolean} [removalTooltip] [Optional] - see `tooltip` parameter of `createRemoveButtonElement()`
  * @param {Function} [callbackFn] Optional callback function to be called when the remove button is clicked
  * @param {*} [callbackData] Optional data to be used as the sole parameter for the callback function (if not set, the value of the `subForm` parameter is used)
+ * @param {boolean} unpackCallbackData Whether to unpack the value of `callbackData` (but only if it is an array) into separate parameters for the callback function
  */
-function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackData) {
+function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackData, unpackCallbackData = false) {
 	if( typeof subForm !== 'object' || !(subForm instanceof $) ) {
 		throw new TypeError('The "subForm" argument must be a jQuery object.');
 	}
@@ -444,7 +445,11 @@ function setupSubFormRemoveAction(subForm, removalTooltip, callbackFn, callbackD
 	removeButton.on('click', () => {
 		if( typeof callbackFn === 'function' ) {
 			if( typeof callbackData !== 'undefined' ) {
-				callbackFn(callbackData);
+				if( unpackCallbackData && Array.isArray(callbackData) ) {
+					callbackFn(...callbackData);
+				} else {
+					callbackFn(callbackData);
+				}
 			} else {
 				callbackFn(subForm);
 			}

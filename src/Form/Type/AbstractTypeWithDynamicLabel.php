@@ -33,7 +33,7 @@ abstract class AbstractTypeWithDynamicLabel extends AbstractType implements Type
 		}
 
 		$labelSetter = $options[self::LABEL_SETTER_OPTION];
-		$formData = $form->getData();
+		$formData = $form->getNormData();
 
 		if( is_callable($labelSetter) ) {
 			$labelValue = $labelSetter($form);

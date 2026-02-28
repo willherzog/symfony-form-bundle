@@ -22,7 +22,7 @@ class ModalImageSelectType extends AbstractType
 	{
 		$labelSetterOption = $resolver->isDefined('value_label') ? 'value_label' : 'button_text';
 		$resolver->setDefault($labelSetterOption, function (FormInterface $form): ?string {
-			$image = $form->getData();
+			$image = $form->getNormData();
 
 			if( $image !== null && $image !== '' ) {
 				if( is_object($image) && method_exists($image, 'getName') ) {

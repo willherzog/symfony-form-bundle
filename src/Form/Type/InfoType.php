@@ -37,7 +37,7 @@ class InfoType extends AbstractType implements TypeWithPropertyAccessorInterface
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
 		$labelSetter = $options['value_label'];
-		$formData = $form->getData();
+		$formData = $form->getNormData();
 
 		if( is_callable($labelSetter) ) {
 			$labelValue = $labelSetter($form);

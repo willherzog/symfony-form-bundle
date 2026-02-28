@@ -26,7 +26,7 @@ class ModalEnumSelectType extends AbstractType implements TypeWithTranslatorInte
 	{
 		$labelSetterOption = $resolver->isDefined('value_label') ? 'value_label' : 'button_text';
 		$resolver->setDefault($labelSetterOption, function (FormInterface $form): ?string {
-			$currentValue = $form->getData();
+			$currentValue = $form->getNormData();
 
 			if( !empty($currentValue) ) {
 				$enumClass = $form->getConfig()->getAttribute('_enum_class');

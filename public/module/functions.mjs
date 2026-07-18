@@ -353,10 +353,25 @@ function setupFormFields(container = null, focusFirst = false, addClearDateButto
 		const allTextBasedInputs = container.find(textBasedInputsSelector);
 		let firstInput = allTextBasedInputs.filter('[autofocus]').first();
 
-		if( firstInput.length === 0 ) {
+		if( firstInput.length === 0 ) { // i.e. no inputs with the autofocus property
 			firstInput = allTextBasedInputs.not('[readonly]').filter(':enabled').first();
 
-			firstInput.trigger('focus');
+			/*
+				@param {JQuery} input
+
+				@returns {bool}
+			*/
+			function isVisible(input) {
+				if( input.length > 0 ) {
+					return input.offset().top + input.height() > $(window).scrollTop();
+				}
+
+				return false;
+			}
+
+			if( isVisible(firstInput) ) {
+				firstInput.trigger('focus');
+			}
 		}
 
 		// @ts-ignore - Will always be required type JQuery<HTMLInputElement>, but no way to "tell" TypeScript this :-/
